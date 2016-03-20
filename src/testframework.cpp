@@ -238,7 +238,7 @@ void TestFrameWork::main()
 	  * sonido de fondo
 	  */
 	 al_set_path_filename(path, "sonido-ants.wav");
-//	 printf("path = %s\n",al_path_cstr(path, '/'));
+
 	 sonido_de_fondo = al_load_sample(al_path_cstr(path, '/'));
 	 if(sonido_de_fondo == NULL)
 	 {
@@ -262,15 +262,6 @@ void TestFrameWork::main()
 	al_destroy_path(path);
 
 
-/*
-	list<Level*>::iterator tmp_iter_1;
-	for (tmp_iter_1=level_manager->get_begin_iterator();
-			 tmp_iter_1!=level_manager->get_end_iterator();
-			 tmp_iter_1++)
-	{
-		printf("nivel = %d\n", (*tmp_iter_1)->get_level());
-	}
-*/
 	/*
 	 * Activamos el primer nivel
 	 */
