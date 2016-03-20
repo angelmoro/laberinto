@@ -8,6 +8,11 @@
 		},
 		{
 			"jlevel" : 4,
+			"jnombre" : "AA",
+			"jpuntuacion" : 180
+		},
+		{
+			"jlevel" : 4,
 			"jnombre" : "DIEGOOOO",
 			"jpuntuacion" : 110
 		},
