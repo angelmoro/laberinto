@@ -1,0 +1,20 @@
+{
+	"records" : 
+	[
+		{
+			"jlevel" : 5,
+			"jnombre" : "GELU",
+			"jpuntuacion" : 140
+		},
+		{
+			"jlevel" : 4,
+			"jnombre" : "DIEGOOOO",
+			"jpuntuacion" : 110
+		},
+		{
+			"jlevel" : 1,
+			"jnombre" : "GELU",
+			"jpuntuacion" : 0
+		}
+	]
+}

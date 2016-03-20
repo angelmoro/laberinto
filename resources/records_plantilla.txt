@@ -1,0 +1,9 @@
+{
+	"records" : 
+	[
+		{
+			"jnombre" : "dummy",
+			"jpuntuacion" : 340
+		}
+	]
+}
