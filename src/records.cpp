@@ -106,7 +106,8 @@ void Records::do_action(ControllableObject::action_t act, int magnitude)
 
 	al_play_sample(sonido_tecla, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	if ((act >= ALLEGRO_KEY_A) && (act <= ALLEGRO_KEY_Z )) {
-		nombre_tmp += al_keycode_to_name(act);
+		if (nombre_tmp.length()<9)
+			nombre_tmp += al_keycode_to_name(act);
 	}
 
 	switch (act)
