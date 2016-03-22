@@ -8,6 +8,11 @@
 		},
 		{
 			"jlevel" : 5,
+			"jnombre" : "KLKKKKKKK",
+			"jpuntuacion" : 240
+		},
+		{
+			"jlevel" : 5,
 			"jnombre" : "GELU",
 			"jpuntuacion" : 160
 		},
@@ -20,11 +25,6 @@
 			"jlevel" : 4,
 			"jnombre" : "AA",
 			"jpuntuacion" : 180
-		},
-		{
-			"jlevel" : 4,
-			"jnombre" : "DIEGOOOO",
-			"jpuntuacion" : 110
 		}
 	]
 }

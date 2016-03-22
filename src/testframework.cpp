@@ -38,7 +38,11 @@
 #include "records.h"
 #include "levelosoconf.h"
 
-#include <tmx.h>
+#include "tinyxml2.h"
+
+using namespace tinyxml2;
+
+//#include <tmx.h>
 
 void TestFrameWork::main()
 {
@@ -68,14 +72,33 @@ void TestFrameWork::main()
 	 al_append_path_component(path, "resources");
 
 
-
+/*
 	  tmx_map *map = tmx_load("practica2.tmx");
 	  if (!map) {
 	    tmx_perror("tmx_load");
 	    exit (-1);
 	  }
-	  /* ... */
+	   ...
 	  tmx_map_free(map);
+*/
+
+	 XMLDocument doc;
+	 int v0 = 0;
+
+	 doc.LoadFile( "resources/practica2.tmx" );
+/*
+	 XMLElement* titleElement = doc.FirstChildElement( "tileset" )->FirstChildElement( "image" );
+	const char* title = titleElement->GetText();
+	printf( "Name of play (1): %s\n", title );
+
+	XMLText* textNode = titleElement->FirstChild()->ToText();
+	title = textNode->Value();
+	printf( "Name of play (2): %s\n", title );
+*/
+	XMLElement* attributeApproachElement = doc.FirstChildElement("map")->FirstChildElement( "tileset" )->FirstChildElement( "image" );
+	attributeApproachElement->QueryIntAttribute( "width", &v0 );
+
+	printf("width = %d\n", v0);
 
 	/*
 	 * Creamos 20 niveles. Los hay que crear los primeros si se va a utilizar fondo
