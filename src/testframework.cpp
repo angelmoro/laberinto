@@ -38,6 +38,8 @@
 #include "records.h"
 #include "levelosoconf.h"
 
+#include <tmx.h>
+
 void TestFrameWork::main()
 {
 
@@ -54,6 +56,8 @@ void TestFrameWork::main()
 	 LevelOsoConf   configuracion;
 
 
+
+
 	 /*
 	 * para crear path relativos y poder distribuir el programa y ejecutarlo
 	 * fuera del IDE
@@ -62,6 +66,16 @@ void TestFrameWork::main()
 	 path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
 	 al_remove_path_component(path,-1);
 	 al_append_path_component(path, "resources");
+
+
+
+	  tmx_map *map = tmx_load("practica2.tmx");
+	  if (!map) {
+	    tmx_perror("tmx_load");
+	    exit (-1);
+	  }
+	  /* ... */
+	  tmx_map_free(map);
 
 	/*
 	 * Creamos 20 niveles. Los hay que crear los primeros si se va a utilizar fondo
