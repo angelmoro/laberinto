@@ -7,24 +7,24 @@
 			"jpuntuacion" : 450
 		},
 		{
+			"jlevel" : 6,
+			"jnombre" : "SDFDSF",
+			"jpuntuacion" : 380
+		},
+		{
 			"jlevel" : 5,
 			"jnombre" : "KLKKKKKKK",
 			"jpuntuacion" : 240
 		},
 		{
 			"jlevel" : 5,
-			"jnombre" : "GELU",
-			"jpuntuacion" : 160
+			"jnombre" : "ASDA",
+			"jpuntuacion" : 210
 		},
 		{
 			"jlevel" : 5,
-			"jnombre" : "GELU",
-			"jpuntuacion" : 140
-		},
-		{
-			"jlevel" : 4,
-			"jnombre" : "AA",
-			"jpuntuacion" : 180
+			"jnombre" : "QWE",
+			"jpuntuacion" : 200
 		}
 	]
 }

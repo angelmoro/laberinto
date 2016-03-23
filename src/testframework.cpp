@@ -37,6 +37,7 @@
 #include "hormiga.h"
 #include "records.h"
 #include "levelosoconf.h"
+#include "tilemap.h"
 
 #include "tinyxml2.h"
 
@@ -82,23 +83,9 @@ void TestFrameWork::main()
 	  tmx_map_free(map);
 */
 
-	 XMLDocument doc;
-	 int v0 = 0;
+	 TileMap mapa("resources/practica2.tmx");
 
-	 doc.LoadFile( "resources/practica2.tmx" );
-/*
-	 XMLElement* titleElement = doc.FirstChildElement( "tileset" )->FirstChildElement( "image" );
-	const char* title = titleElement->GetText();
-	printf( "Name of play (1): %s\n", title );
 
-	XMLText* textNode = titleElement->FirstChild()->ToText();
-	title = textNode->Value();
-	printf( "Name of play (2): %s\n", title );
-*/
-	XMLElement* attributeApproachElement = doc.FirstChildElement("map")->FirstChildElement( "tileset" )->FirstChildElement( "image" );
-	attributeApproachElement->QueryIntAttribute( "width", &v0 );
-
-	printf("width = %d\n", v0);
 
 	/*
 	 * Creamos 20 niveles. Los hay que crear los primeros si se va a utilizar fondo
