@@ -9,20 +9,21 @@
 #define INC_TILEDATA_H_
 
 #include <string>
-
-
+#include "tinyxml2.h"
 
 
 class TileData
 {
 public:
-	TileData();
+	TileData(tinyxml2::XMLElement * t);
 	~TileData();
+	void parse();
 private:
 
 	std::string encoding; // The encoding used to encode the tile layer data. When used, it can be "base64" and "csv" at the moment.
 	std::string compression; // The compression used to compress the tile layer data. Tiled Qt supports "gzip" and "zlib".
 
+	tinyxml2::XMLElement * root_tiledata;
 };
 
 

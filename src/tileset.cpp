@@ -9,6 +9,7 @@
 #include "tileset.h"
 #include "tileproperty.h"
 #include "tileimage.h"
+#include "tileterrain.h"
 
 using namespace tinyxml2;
 
@@ -33,6 +34,7 @@ void TileSet::parse()
 	XMLElement 		* pListElement;
 	const char 		* szAttributeText;
 	TileProperty	*tp;
+	TileTerrain		*tt;
 	/*
 	 * Se extraen todos los atributos del elemento tileset
 	 */
@@ -121,6 +123,23 @@ void TileSet::parse()
 	}else {
 		pListElement = NULL;
 		printf("no hay ningun elemento image\n");
+	}
+	/*
+	 * Cargamos la lista de terraintypes
+	 */
+	pElement_tmp = root_tileset->FirstChildElement("terraintypes"); //nos saltamos el tag terraintypes
+	if (pElement_tmp != NULL) {
+		pListElement = pElement_tmp->FirstChildElement("terrain");
+	}else {
+		pListElement = NULL;
+		printf("no hay ningun elemento terraintypes\n");
+	}
+	if (pListElement == NULL) {printf("no hay ningun elemento terrain\n");}
+	while (pListElement != NULL)
+	{
+		tt = new TileTerrain(pListElement);
+		terraintypes.push_back(tt);
+		pListElement = pListElement->NextSiblingElement("terrain");
 	}
 
 }

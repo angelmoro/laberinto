@@ -12,6 +12,7 @@
 #include <string>
 #include <tinyxml2.h>
 
+class TileData;
 
 class TileImage
 {
@@ -27,6 +28,8 @@ private:
 	std::string trans; // Defines a specific color that is treated as transparent (example value: "#FF00FF" for magenta). Up until Tiled 0.12, this value is written out without a # but this is planned to change.
 	int width; // The image width in pixels (optional, used for tile index correction when the image changes)
 	int height; // The image height in pixels (optional)
+
+	TileData * data;
 
 	tinyxml2::XMLElement * root_tileimage;
 };

@@ -7,13 +7,17 @@
 
 #include "tiledata.h"
 
-TileData::TileData()
+TileData::TileData(tinyxml2::XMLElement * t)
 {
-
+	root_tiledata = t;
+	printf("creado tiledata\n");
+	parse();
 }
 TileData::~TileData()
 {
 
 }
+void TileData::parse()
+{
 
-
+}
