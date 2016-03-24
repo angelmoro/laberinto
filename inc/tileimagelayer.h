@@ -10,7 +10,7 @@
 
 #include <string>
 #include <list>
-#include <tinyxml2.h>
+#include "tinyxml2.h"
 
 
 
@@ -23,6 +23,7 @@ public:
 	TileImageLayer(tinyxml2::XMLElement * t);
 	~TileImageLayer();
 	void draw();
+	void parse();
 private:
 
 	std::string name; // The name of the image layer.
@@ -32,7 +33,8 @@ private:
 	int visible; // Whether the layer is shown (1) or hidden (0). Defaults to 1.
 	std::list<TileProperty*> properties;
 	std::list<TileProperty*>::iterator properties_iter;
-	TileImage * imagen;
+	TileImage * image;
+
 	tinyxml2::XMLElement * root_tileimagelayer;
 };
 

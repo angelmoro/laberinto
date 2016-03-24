@@ -10,9 +10,10 @@
 
 #include <string>
 #include <list>
-#include <tinyxml2.h>
+#include "tinyxml2.h"
 
 class TileProperty;
+class TileImage;
 
 
 class TileObject
@@ -36,6 +37,7 @@ private:
 	int visible; // Whether the object is shown (1) or hidden (0). Defaults to 1. (since 0.9)
 	std::list<TileProperty*> properties;
 	std::list<TileProperty*>::iterator properties_iter;
+	TileImage * image;
 
 	tinyxml2::XMLElement * root_tileobject;
 };

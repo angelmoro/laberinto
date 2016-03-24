@@ -8,6 +8,7 @@
 
 #include "tileobject.h"
 #include "tileproperty.h"
+#include "tileimage.h"
 
 TileObject::TileObject(tinyxml2::XMLElement * t)
 {
@@ -113,5 +114,16 @@ void TileObject::parse()
 		tp = new TileProperty(pListElement);
 		properties.push_back(tp);
 		pListElement = pListElement->NextSiblingElement("property");
+	}
+
+	/*
+	 * Cargamos la imagen si existe
+	 */
+	pElement_tmp = root_tileobject->FirstChildElement("image");
+	if (pElement_tmp != NULL) {
+		image = new TileImage(pElement_tmp);
+	}else {
+		pListElement = NULL;
+		printf("no hay ningun elemento image\n");
 	}
 }
