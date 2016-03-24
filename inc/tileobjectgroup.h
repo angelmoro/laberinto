@@ -23,6 +23,7 @@ public:
 	TileObjectGroup(tinyxml2::XMLElement * t);
 	~TileObjectGroup();
 	void draw();
+	void parse();
 private:
 
 	std::string name; // The name of the object group.
@@ -35,8 +36,9 @@ private:
 	std::string draworder; // Whether the objects are drawn according to the order of appearance ("index") or sorted by their y-coordinate ("topdown"). Defaults to "topdown".
 	std::list<TileProperty*> properties;
 	std::list<TileProperty*>::iterator properties_iter;
-	std::list<TileObject*> Objects;
+	std::list<TileObject*> objects;
 	std::list<TileObject*>::iterator Objects_iter;
+
 	tinyxml2::XMLElement * root_tileobjectgroup;
 
 };

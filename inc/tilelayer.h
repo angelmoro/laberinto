@@ -21,6 +21,7 @@ public:
 	TileLayer(tinyxml2::XMLElement * t);
 	~TileLayer();
 	void draw();
+	void parse();
 private:
 
 	std::string name; // The name of the layer.
@@ -30,7 +31,7 @@ private:
 	int offsety; // Rendering offset for this layer in pixels. Defaults to 0. (since 0.14)
 	std::list<TileProperty*> properties;
 	std::list<TileProperty*>::iterator properties_iter;
-	TileData * datos;
+	TileData * data;
 	tinyxml2::XMLElement * root_tilelayer;
 };
 

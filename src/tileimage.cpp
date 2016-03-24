@@ -26,7 +26,6 @@ void TileImage::parse()
 {
 	tinyxml2::XMLError 			eResult;
 	tinyxml2::XMLElement 		* pElement_tmp;
-	tinyxml2::XMLElement 		* pListElement;
 	const char 					* szAttributeText;
 
 	/*
