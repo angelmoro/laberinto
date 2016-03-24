@@ -6,14 +6,20 @@
  */
 
 #include "tilemap.h"
+#include "tileset.h"
+#include "tilelayer.h"
+#include "tileobjectgroup.h"
+#include "tileimagelayer.h"
+#include "tileproperty.h"
 
+using namespace tinyxml2;
 
-TileMap::TileMap(string file)
+TileMap::TileMap(std::string file)
 {
-	XMLError eResult;
+	tinyxml2::XMLError eResult;
 
 	eResult = xmlDoc.LoadFile(file.c_str());
-	if (eResult != XML_SUCCESS)  {printf("Error: %i\n", eResult);exit(-1);}
+	if (eResult != tinyxml2::XML_SUCCESS)  {printf("Error: %i\n", eResult);exit(-1);}
 	parse();
 
 }
@@ -29,13 +35,14 @@ void TileMap::parse()
 {
 	XMLError 		eResult;
 //	XMLNode 		* pRoot;
-//	XMLElement 		* pElement;
+	XMLElement 		* pElement_tmp;
 	XMLElement 		* pListElement;
 	const char 		* szAttributeText;
 	TileSet 		* ts;
 	TileLayer		* tl;
 	TileObjectGroup	*to;
 	TileImageLayer	*ti;
+	TileProperty	*tp;
 /*
  * Localiza el elemento map
  */
@@ -182,6 +189,23 @@ void TileMap::parse()
 		ti = new TileImageLayer(pListElement);
 		tileimagelayers.push_back(ti);
 		pListElement = pListElement->NextSiblingElement("imagelayer");
+	}
+	/*
+	 * Cargamos la lista de properties
+	 */
+	pElement_tmp = root_tilemap->FirstChildElement("properties"); //nos saltamos el tag properties
+	if (pElement_tmp != NULL) {
+		pListElement = pElement_tmp->FirstChildElement("property");
+	}else {
+		pListElement = NULL;
+		printf("no hay ningun elemento properties\n");
+	}
+	if (pListElement == NULL) {printf("no hay ningun elemento property\n");}
+	while (pListElement != NULL)
+	{
+		tp = new TileProperty(pListElement);
+		properties.push_back(tp);
+		pListElement = pListElement->NextSiblingElement("property");
 	}
 
 //	XMLElement * pElement = pRoot->FirstChildElement("tileset");

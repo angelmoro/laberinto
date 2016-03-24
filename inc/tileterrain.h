@@ -10,7 +10,7 @@
 
 #include <string>
 
-using namespace std;
+
 
 class TileTerrain
 {
@@ -19,7 +19,7 @@ public:
 	~TileTerrain();
 private:
 
-	string name; // The name of the terrain type.
+	std::string name; // The name of the terrain type.
 	int tile; // The local tile-id of the tile that represents the terrain visually
 };
 

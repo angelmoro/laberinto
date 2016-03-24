@@ -8,7 +8,7 @@
 
 #include "tilelayer.h"
 
-TileLayer::TileLayer(XMLElement * t)
+TileLayer::TileLayer(tinyxml2::XMLElement * t)
 {
 	root_tilelayer = t;
 	printf("creado tilelayer\n");

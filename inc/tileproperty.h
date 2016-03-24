@@ -9,19 +9,19 @@
 #define INC_TILEPROPERTY_H_
 
 #include <string>
+#include <tinyxml2.h>
 
-using namespace std;
 
 class TileProperty
 {
 public:
-	TileProperty();
+	TileProperty(tinyxml2::XMLElement * t);
 	~TileProperty();
 private:
 
-	string name; // The name of the property.
-	string value; // The value of the property.
-
+	std::string name; // The name of the property.
+	std::string value; // The value of the property.
+	tinyxml2::XMLElement * root_tileproperty;
 };
 
 

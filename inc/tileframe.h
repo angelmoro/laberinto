@@ -11,8 +11,6 @@
 #include <string.h>
 
 
-using namespace std;
-
 class TileFrame
 {
 public:

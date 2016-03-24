@@ -7,9 +7,10 @@
 
 #include "tileproperty.h"
 
-TileProperty::TileProperty()
+TileProperty::TileProperty(tinyxml2::XMLElement * t)
 {
-
+	root_tileproperty = t;
+	printf("creado tileproperty\n");
 }
 TileProperty::~TileProperty()
 {

@@ -9,10 +9,8 @@
 #define INC_TILEANIMATION_H_
 
 #include <string>
-#include "tileframe.h"
 
-
-using namespace std;
+class TileFrame;
 
 class TileAnimation
 {
@@ -21,7 +19,7 @@ public:
 	~TileAnimation();
 private:
 
-   TileFrame frame;
+   TileFrame *frame;
 
 };
 

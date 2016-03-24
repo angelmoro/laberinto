@@ -7,7 +7,7 @@
 
 #include "tileobjectgroup.h"
 
-TileObjectGroup::TileObjectGroup(XMLElement * t)
+TileObjectGroup::TileObjectGroup(tinyxml2::XMLElement * t)
 {
 	root_tileobjectgroup = t;
 	printf("creado tileobjectgroup\n");

@@ -7,13 +7,21 @@
 
 #include "tileimage.h"
 
-TileImage::TileImage()
+TileImage::TileImage(tinyxml2::XMLElement * t)
 {
-
+	root_tileimage = t;
+	printf("creado tileimage\n");
+	parse();
 }
 TileImage::~TileImage()
 {
 
 }
+void TileImage::draw()
+{
 
+}
+void TileImage::parse()
+{
 
+}

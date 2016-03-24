@@ -6,8 +6,11 @@
  */
 
 #include "tileimagelayer.h"
+#include "tinyxml2.h"
 
-TileImageLayer::TileImageLayer(XMLElement * t)
+
+
+TileImageLayer::TileImageLayer(tinyxml2::XMLElement * t)
 {
 	root_tileimagelayer = t;
 	printf("creado tileimagelayer\n");
