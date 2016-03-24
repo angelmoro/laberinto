@@ -23,6 +23,9 @@ private:
 	std::string encoding; // The encoding used to encode the tile layer data. When used, it can be "base64" and "csv" at the moment.
 	std::string compression; // The compression used to compress the tile layer data. Tiled Qt supports "gzip" and "zlib".
 //tile
+
+	const char * data;
+
 	tinyxml2::XMLElement * root_tiledata;
 };
 

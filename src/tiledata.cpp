@@ -11,6 +11,7 @@ TileData::TileData(tinyxml2::XMLElement * t)
 {
 	root_tiledata = t;
 	printf("creado tiledata\n");
+	data = NULL;
 	parse();
 }
 TileData::~TileData()
@@ -20,6 +21,7 @@ TileData::~TileData()
 void TileData::parse()
 {
 	const char 		* szAttributeText;
+
 
 	/*
 	 * Se extraen todos los atributos del elemento tileset
@@ -41,4 +43,18 @@ void TileData::parse()
 		compression = szAttributeText;
 		printf("compression %s\n",compression.c_str());
 	}
+
+	/*
+	 * extraemos los datos en funcion del encoding
+	 */
+	if (encoding.compare("base64") == 0) {
+		printf("encoding base64 sin implementar\n");
+	} else if  (encoding.compare("csv") == 0) {
+		data = root_tiledata->GetText();
+	} else {
+		printf("encoding desconocido\n");
+	}
+	printf("data %s\n",data);
+
+
 }
