@@ -11,7 +11,7 @@
 #include "tileimage.h"
 #include "tileterrain.h"
 
-using namespace tinyxml2;
+
 
 TileSet::TileSet(tinyxml2::XMLElement * t)
 {
@@ -61,38 +61,38 @@ void TileSet::parse()
 		printf("name %s\n",name.c_str());
 	}
 	eResult = root_tileset->QueryIntAttribute("tilewidth", &tilewidth);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando tilewidth: %i\n", eResult);
 	}else{
 		printf("tilewidth %d\n",tilewidth);
 	}
 
 	eResult = root_tileset->QueryIntAttribute("tileheight", &tileheight);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando tileheight: %i\n", eResult);
 	}else{
 		printf("tileheight %d\n",tileheight);
 	}
 	eResult = root_tileset->QueryIntAttribute("spacing", &spacing);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando spacing: %i\n", eResult);
 	}else{
 		printf("spacing %d\n",spacing);
 	}
 	eResult = root_tileset->QueryIntAttribute("margin", &margin);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando margin: %i\n", eResult);
 	}else{
 		printf("margin %d\n",margin);
 	}
 	eResult = root_tileset->QueryIntAttribute("tilecount", &tilecount);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando tilecount: %i\n", eResult);
 	}else{
 		printf("tilecount %d\n",tilecount);
 	}
 	eResult = root_tileset->QueryIntAttribute("columns", &columns);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando columns: %i\n", eResult);
 	}else{
 		printf("columns %d\n",columns);

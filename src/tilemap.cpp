@@ -12,7 +12,7 @@
 #include "tileimagelayer.h"
 #include "tileproperty.h"
 
-using namespace tinyxml2;
+
 
 TileMap::TileMap(std::string file)
 {
@@ -33,16 +33,15 @@ void TileMap::draw()
 }
 void TileMap::parse()
 {
-	XMLError 		eResult;
-//	XMLNode 		* pRoot;
-	XMLElement 		* pElement_tmp;
-	XMLElement 		* pListElement;
-	const char 		* szAttributeText;
-	TileSet 		* ts;
-	TileLayer		* tl;
-	TileObjectGroup	*to;
-	TileImageLayer	*ti;
-	TileProperty	*tp;
+	tinyxml2::XMLError 			eResult;
+	tinyxml2::XMLElement 		* pElement_tmp;
+	tinyxml2::XMLElement 		* pListElement;
+	const char 					* szAttributeText;
+	TileSet 					* ts;
+	TileLayer					* tl;
+	TileObjectGroup				*to;
+	TileImageLayer				*ti;
+	TileProperty				*tp;
 /*
  * Localiza el elemento map
  */
@@ -79,35 +78,35 @@ void TileMap::parse()
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("width", &width);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando width: %i\n", eResult);
 	}else{
 		printf("width %d\n",width);
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("height", &height);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando height: %i\n", eResult);
 	}else{
 		printf("height %d\n",height);
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("tilewidth", &tilewidth);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando tilewidth: %i\n", eResult);
 	}else{
 		printf("tilewidth %d\n",tilewidth);
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("tileheight", &tileheight);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando tileheight: %i\n", eResult);
 	}else{
 		printf("tileheight %d\n",tileheight);
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("hexsidelength", &hexsidelength);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando hexsidelength: %i\n", eResult);
 	}else{
 		printf("hexsidelength %d\n",hexsidelength);
@@ -141,7 +140,7 @@ void TileMap::parse()
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("nextobjectid", &nextobjectid);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando nextobjectid: %i\n", eResult);
 	}else{
 		printf("nextobjectid %d\n",nextobjectid);
