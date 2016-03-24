@@ -13,7 +13,7 @@
 
 using namespace tinyxml2;
 
-TileSet::TileSet(XMLElement * t)
+TileSet::TileSet(tinyxml2::XMLElement * t)
 {
 	root_tileset = t;
 	printf("creado tileset\n");
@@ -29,17 +29,17 @@ void TileSet::draw()
 }
 void TileSet::parse()
 {
-	XMLError 		eResult;
-	XMLElement 		* pElement_tmp;
-	XMLElement 		* pListElement;
-	const char 		* szAttributeText;
-	TileProperty	*tp;
-	TileTerrain		*tt;
+	tinyxml2::XMLError 			eResult;
+	tinyxml2::XMLElement 		* pElement_tmp;
+	tinyxml2::XMLElement 		* pListElement;
+	const char 					* szAttributeText;
+	TileProperty				*tp;
+	TileTerrain					*tt;
 	/*
 	 * Se extraen todos los atributos del elemento tileset
 	 */
 	eResult = root_tileset->QueryIntAttribute("firstgid", &firstgid);
-	if (eResult != XML_SUCCESS)  {
+	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando firstgid: %i\n", eResult);
 	}else{
 		printf("firstgid %d\n",firstgid);

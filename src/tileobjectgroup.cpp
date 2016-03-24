@@ -7,6 +7,7 @@
 
 #include "tileobjectgroup.h"
 #include "tileproperty.h"
+#include "tileobject.h"
 
 TileObjectGroup::TileObjectGroup(tinyxml2::XMLElement * t)
 {

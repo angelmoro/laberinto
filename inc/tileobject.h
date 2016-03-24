@@ -10,6 +10,7 @@
 
 #include <string>
 #include <list>
+#include <tinyxml2.h>
 
 class TileProperty;
 
@@ -17,9 +18,10 @@ class TileProperty;
 class TileObject
 {
 public:
-	TileObject();
+	TileObject(tinyxml2::XMLElement * t);
 	~TileObject();
 	void draw();
+	void parse();
 private:
 
 	int id; // Unique ID of the object. Each object that is placed on a map gets a unique id. Even if an object was deleted, no object gets the same ID. Can not be changed in Tiled Qt. (since Tiled 0.11)
@@ -34,6 +36,8 @@ private:
 	int visible; // Whether the object is shown (1) or hidden (0). Defaults to 1. (since 0.9)
 	std::list<TileProperty*> properties;
 	std::list<TileProperty*>::iterator properties_iter;
+
+	tinyxml2::XMLElement * root_tileobject;
 };
 
 
