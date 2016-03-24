@@ -9,18 +9,23 @@
 #define INC_TILEANIMATION_H_
 
 #include <string>
+#include <list>
+#include <tinyxml2.h>
 
 class TileFrame;
 
 class TileAnimation
 {
 public:
-	TileAnimation();
+	TileAnimation(tinyxml2::XMLElement * t);
 	~TileAnimation();
+	void parse();
 private:
 
-   TileFrame *frame;
+	std::list<TileFrame*> frames;
+	std::list<TileFrame*>::iterator frames_iter;
 
+	tinyxml2::XMLElement * root_tileanimation;
 };
 
 
