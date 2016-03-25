@@ -10,12 +10,14 @@
 
 #include <string>
 #include <list>
-#include <tinyxml2.h>
+#include "tinyxml2.h"
 
 
 class TileProperty;
 class TileImage;
 class TileTerrain;
+class TileOffset;
+class Tile;
 
 class TileSet
 {
@@ -35,13 +37,14 @@ private:
 	int margin; // The margin around the tiles in this tileset (applies to the tileset image).
 	int tilecount; // The number of tiles in this tileset (since 0.13)
 	int columns; // The number of tile columns in the tileset. For image collection tilesets it is editable and is used when displaying the tileset. (since 0.15)
-//<tileoffset>
+	TileOffset * tileoffset;
 	std::list<TileProperty*> properties;
 	std::list<TileProperty*>::iterator properties_iter;
 	TileImage * image;
 	std::list<TileTerrain*> terraintypes;
 	std::list<TileTerrain*>::iterator terraintypes_iter;
-//<tile>
+	std::list<Tile*> tiles;
+	std::list<Tile*>::iterator tiles_iter;
 
 
 	tinyxml2::XMLElement * root_tileset;

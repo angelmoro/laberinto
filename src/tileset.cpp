@@ -10,6 +10,8 @@
 #include "tileproperty.h"
 #include "tileimage.h"
 #include "tileterrain.h"
+#include "tileoffset.h"
+#include "tile.h"
 
 
 
@@ -35,6 +37,8 @@ void TileSet::parse()
 	const char 					* szAttributeText;
 	TileProperty				*tp;
 	TileTerrain					*tt;
+	Tile						*t;
+
 	/*
 	 * Se extraen todos los atributos del elemento tileset
 	 */
@@ -98,6 +102,16 @@ void TileSet::parse()
 		printf("columns %d\n",columns);
 	}
 	/*
+	 * Cargamos el offset si existe
+	 */
+	pElement_tmp = root_tileset->FirstChildElement("tileoffset");
+	if (pElement_tmp != NULL) {
+		tileoffset = new TileOffset(pElement_tmp);
+	}else {
+		pListElement = NULL;
+		printf("no hay ningun elemento tileoffset\n");
+	}
+	/*
 	 * Cargamos la lista de properties
 	 */
 	pElement_tmp = root_tileset->FirstChildElement("properties"); //nos saltamos el tag properties
@@ -140,6 +154,17 @@ void TileSet::parse()
 		tt = new TileTerrain(pListElement);
 		terraintypes.push_back(tt);
 		pListElement = pListElement->NextSiblingElement("terrain");
+	}
+	/*
+	 * Cargamos la lista de tiles
+	 */
+	pListElement = root_tileset->FirstChildElement("tile");
+	if (pListElement == NULL) {printf("no hay ningun elemento tile\n");}
+	while (pListElement != NULL)
+	{
+		t = new Tile(pListElement);
+		tiles.push_back(t);
+		pListElement = pListElement->NextSiblingElement("tile");
 	}
 
 }

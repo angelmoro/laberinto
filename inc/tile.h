@@ -10,6 +10,7 @@
 
 #include <string>
 #include <list>
+#include "tinyxml2.h"
 
 
 
@@ -22,8 +23,9 @@ class TileProperty;
 class Tile
 {
 public:
-	Tile();
+	Tile(tinyxml2::XMLElement * t);
 	~Tile();
+	void parse();
 private:
 
 	int id; // The local tile ID within its tileset.
@@ -34,6 +36,8 @@ private:
 	TileImage *image;
 	TileAnimation * animation;
 	TileObjectGroup * objectgroup;
+
+	tinyxml2::XMLElement * root_tile;
 };
 
 
