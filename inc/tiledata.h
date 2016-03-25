@@ -9,6 +9,7 @@
 #define INC_TILEDATA_H_
 
 #include <string>
+#include <vector>
 #include "tinyxml2.h"
 
 
@@ -24,7 +25,9 @@ private:
 	std::string compression; // The compression used to compress the tile layer data. Tiled Qt supports "gzip" and "zlib".
 //tile
 
-	const char * data;
+	std::string data;
+	std::vector<int> vtiles; //vector con los tile id
+	std::vector<int>::iterator vtiles_iter;
 
 	tinyxml2::XMLElement * root_tiledata;
 };
