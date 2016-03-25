@@ -19,10 +19,14 @@ TileData::~TileData()
 }
 void TileData::parse()
 {
-	const char 		* szAttributeText;
-	const char 		* text_tmp;
-	std::string::iterator it; // The string iterator.
-	std::string		string_tmp;
+	tinyxml2::XMLError 			eResult;
+	tinyxml2::XMLElement 		* pListElement;
+	const char 					* szAttributeText;
+	const char 					* text_tmp;
+	std::string::iterator		it; // The string iterator.
+	std::string					string_tmp;
+	int							gid_tmp;
+
 	/*
 	 * Se extraen todos los atributos del elemento tileset
 	 */
@@ -58,27 +62,12 @@ void TileData::parse()
 		/*
 		 * Populamos un vector con todos los tiles en formato entero
 		 */
-/*
-		filas=0;
-		columnas=0;
-
-		for (it= data.begin(); it != data.end(); it++)
-		{
-		  if ((*it) == '\n') 	{filas++;}
-		  if ((*it) == ',') 	{columnas++;}
-		}
-		filas--;// no tengo claro porque hay un fin de linea de mas
-		columnas++;// sumo uno porque la ultima coma no se pone
-		columnas = columnas / filas;
-		printf("data filas = %d,data columnas = %d\n",filas,columnas);
-*/
 
 		string_tmp = "";
 		for (it= data.begin(); it != data.end(); it++)
 		{
 		  if ((*it) == ',') {
 			  vtiles.push_back(atoi(string_tmp.c_str()));
-//			  printf("%d\n",atoi(string_tmp.c_str()));
 			  string_tmp = "";
 			  vtiles_iter++;
 		  }
@@ -90,13 +79,29 @@ void TileData::parse()
 		  }
 
 		}
-/*
-		  for (vtiles_iter= vtiles.begin(); vtiles_iter != vtiles.end(); vtiles_iter++)
-		  		{
-			  	  printf("tile %d\n",*vtiles_iter);
-		  		}
 
-*/
+	} else if ((encoding.compare("") == 0)&&((compression.compare("") == 0))){
+
+		printf("no definido encoding ni compression, parseando tags <tile>\n");
+
+		/*
+		 * Cargamos la lista de tile, no creamos objetos tile, directamente lo almacenamos
+		 * en el vector de data
+		 */
+		pListElement = root_tiledata->FirstChildElement("tile");
+
+		while (pListElement != NULL)
+		{
+			eResult = pListElement->QueryIntAttribute("gid", &gid_tmp);
+			if (eResult != tinyxml2::XML_SUCCESS)  {
+				printf("Error cargando gid: %i\n", eResult);
+			}else{
+				printf("gid %d\n",gid_tmp);
+			}
+			vtiles.push_back(gid_tmp);
+			pListElement = pListElement->NextSiblingElement("tile");
+		}
+
 	} else {
 
 		printf("encoding desconocido\n");
@@ -104,5 +109,12 @@ void TileData::parse()
 	}
 
 	printf("data %s\n",data.c_str());
+/*
+	for (vtiles_iter= vtiles.begin(); vtiles_iter != vtiles.end(); vtiles_iter++)
+	{
+	  printf("tile %d\n",*vtiles_iter);
+	}
+
+*/
 
 }

@@ -83,7 +83,7 @@ void TestFrameWork::main()
 	  tmx_map_free(map);
 */
 
-	 TileMap mapa("resources/practica2.tmx");
+	 TileMap mapa("resources/example.tmx");
 
 
 
