@@ -29,15 +29,15 @@ TileMap::~TileMap()
 }
 void TileMap::draw()
 {
+	//revisar el orden de dibujo de todos los elementos del mapa TBD
 	/*
-	 * Este bucle es de prueba, en real no hay que iterar por los tilesets para
-	 * dibujarlos
+	 * Iterar para dibujar todos los imagelayers
 	 */
-	for (tilesets_iter=tilesets.begin();
-		 tilesets_iter!=tilesets.end();
-		 tilesets_iter++)
+	for (tileimagelayers_iter=tileimagelayers.begin();
+		 tileimagelayers_iter!=tileimagelayers.end();
+		 tileimagelayers_iter++)
 	{
-		(*tilesets_iter)->draw();
+		(*tileimagelayers_iter)->draw();
 	}
 }
 void TileMap::parse()

@@ -23,8 +23,8 @@ class TileImage
 public:
 	TileImage(tinyxml2::XMLElement * t);
 	~TileImage();
-	void draw(int x,int y);
-	void draw(int x,int y,int t);
+	void draw(int x,int y,float opacity=0);
+	void draw(int x,int y,int tx,int ty,int tw,int th);
 	void parse();
 	void cargar_imagen();
 	unsigned long hex2dec(std::string hex);

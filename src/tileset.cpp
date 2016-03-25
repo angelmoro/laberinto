@@ -25,12 +25,17 @@ TileSet::~TileSet()
 {
 
 }
-void TileSet::draw()
+void TileSet::draw(int x,int y,int tile)
 {
+	int tx,ty; // posicion dentro del tileset, calcularlas a partir del tile
 	/*
-	 * Eliminar es solo de prueba
+	 * Calcular las posiciones en la imagen a partir de tile
 	 */
-	image->draw(0,0);
+
+	tx = 0; //calcular
+	ty = 0; //calcular
+
+	image->draw(x,y,tx,ty,tilewidth,tileheight);
 }
 void TileSet::parse()
 {

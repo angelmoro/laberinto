@@ -29,7 +29,7 @@ private:
 	std::string name; // The name of the image layer.
 	int offsetx; // Rendering offset of the image layer in pixels. Defaults to 0. (since 0.15)
 	int offsety; // Rendering offset of the image layer in pixels. Defaults to 0. (since 0.15)
-	int opacity; // The opacity of the layer as a value from 0 to 1. Defaults to 1.
+	float opacity; // The opacity of the layer as a value from 0 to 1. Defaults to 1.
 	int visible; // Whether the layer is shown (1) or hidden (0). Defaults to 1.
 	std::list<TileProperty*> properties;
 	std::list<TileProperty*>::iterator properties_iter;

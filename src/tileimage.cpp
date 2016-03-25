@@ -21,18 +21,24 @@ TileImage::~TileImage()
 {
 
 }
-void TileImage::draw(int x,int y)
+void TileImage::draw(int x,int y,float opacity)
 {
 	/*
-	 * Dibuja la imagen completa en la posición x,y
+	 * Dibuja la imagen completa en la posición x,y del display
 	 */
-	if (bmp != NULL)	al_draw_bitmap(bmp,y,x,0);
+	// ver en alegro como tratar la opacidad TBD
+//	if (bmp != NULL)	al_draw_bitmap(bmp,y,x,0);
+	if (bmp != NULL) al_draw_tinted_bitmap(bmp, al_map_rgba_f(1, 1, 1, opacity), x, y, 0);
 }
-void TileImage::draw(int x,int y,int t)
+void TileImage::draw(int x,int y,int tx,int ty,int tw,int th)
 {
 	/*
-	 * Dibuja el tile t en la posición x,y
+	 *  Dibuja el tile en la posicion tx,ty de la imagen, con ancho tw y alto th
+	 *  en la posición x,y del display
 	 */
+	if (bmp != NULL) {
+		al_draw_bitmap_region(bmp,tx,ty,tw,th,x,y,0);
+	}
 
 }
 void TileImage::parse()

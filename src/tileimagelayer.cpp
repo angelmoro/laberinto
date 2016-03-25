@@ -13,6 +13,14 @@
 
 TileImageLayer::TileImageLayer(tinyxml2::XMLElement * t)
 {
+/*
+ * Establecemos valores por defecto
+ */
+	offsetx = 0;
+	offsety = 0;
+	opacity = 1;
+	visible = 1; // la version de tiled que estoy usando no genera el atributo "visible"	TBD
+
 	root_tileimagelayer = t;
 	printf("creado tileimagelayer\n");
 	parse();
@@ -20,6 +28,10 @@ TileImageLayer::TileImageLayer(tinyxml2::XMLElement * t)
 TileImageLayer::~TileImageLayer()
 {
 
+}
+void TileImageLayer::draw()
+{
+	if (visible) image->draw(offsetx,offsety,opacity);
 }
 void TileImageLayer::parse()
 {
@@ -52,11 +64,11 @@ void TileImageLayer::parse()
 	}else{
 		printf("offsety %d\n",offsety);
 	}
-	eResult = root_tileimagelayer->QueryIntAttribute("opacity", &opacity);
+	eResult = root_tileimagelayer->QueryFloatAttribute("opacity", &opacity);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
 		printf("Error cargando opacity: %i\n", eResult);
 	}else{
-		printf("opacity %d\n",opacity);
+		printf("opacity %f\n",opacity);
 	}
 	eResult = root_tileimagelayer->QueryIntAttribute("visible", &visible);
 	if (eResult != tinyxml2::XML_SUCCESS)  {

@@ -24,7 +24,7 @@ class TileSet
 public:
 	TileSet (tinyxml2::XMLElement * t);
 	~TileSet();
-	void draw();
+	void draw(int x,int y,int tile);
 	void parse();
 private:
 
