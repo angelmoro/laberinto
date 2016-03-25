@@ -75,7 +75,10 @@ void StageManager::update()
 void StageManager::draw()
 {
 	Actor *tmp;
-//	al_clear_to_color(al_map_rgb(0, 128, 0));
+
+/*
+ * Lo comento mientras hago pruebas de tiled TBD
+
 	al_clear_to_color(al_map_rgb(0,0,0));
 
 
@@ -87,7 +90,7 @@ void StageManager::draw()
 	{
 		tmp->draw();
 	}
-
+*/
 	al_flip_display();
 }
 ALLEGRO_DISPLAY * StageManager::get_display()

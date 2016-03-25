@@ -27,7 +27,10 @@ TileSet::~TileSet()
 }
 void TileSet::draw()
 {
-
+	/*
+	 * Eliminar es solo de prueba
+	 */
+	image->draw(0,0);
 }
 void TileSet::parse()
 {

@@ -29,7 +29,16 @@ TileMap::~TileMap()
 }
 void TileMap::draw()
 {
-
+	/*
+	 * Este bucle es de prueba, en real no hay que iterar por los tilesets para
+	 * dibujarlos
+	 */
+	for (tilesets_iter=tilesets.begin();
+		 tilesets_iter!=tilesets.end();
+		 tilesets_iter++)
+	{
+		(*tilesets_iter)->draw();
+	}
 }
 void TileMap::parse()
 {

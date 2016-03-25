@@ -12,6 +12,10 @@
 #include <string>
 #include <tinyxml2.h>
 
+
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_native_dialog.h>
+
 class TileData;
 
 class TileImage
@@ -19,10 +23,15 @@ class TileImage
 public:
 	TileImage(tinyxml2::XMLElement * t);
 	~TileImage();
-	void draw();
+	void draw(int x,int y);
+	void draw(int x,int y,int t);
 	void parse();
+	void cargar_imagen();
+	unsigned long hex2dec(std::string hex);
 private:
-
+/*
+ * Tile area
+ */
 	std::string format; // Used for embedded images, in combination with a data child element. Valid values are file extensions like png, gif, jpg, bmp, etc. (since 0.9)
 	std::string source; // The reference to the tileset image file (Tiled supports most common image formats).
 	std::string trans; // Defines a specific color that is treated as transparent (example value: "#FF00FF" for magenta). Up until Tiled 0.12, this value is written out without a # but this is planned to change.
@@ -32,6 +41,10 @@ private:
 	TileData * data;
 
 	tinyxml2::XMLElement * root_tileimage;
+/*
+ * Allegro area
+ */
+	ALLEGRO_BITMAP *bmp;
 };
 
 

@@ -83,7 +83,10 @@ void TestFrameWork::main()
 	  tmx_map_free(map);
 */
 
-	 TileMap mapa("resources/example.tmx");
+		// prueba de tiled TBD
+
+		 TileMap mapa("resources/practica2.tmx");
+		 mapa.draw();
 
 
 
@@ -293,6 +296,8 @@ void TestFrameWork::main()
 	level_manager->rewind();
 	level_tmp = level_manager->current();
 	level_tmp->set_activo(TRUE);
+
+
 
 	 /*
 	  * Entramos al bucle principal de eventos

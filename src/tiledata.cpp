@@ -96,7 +96,7 @@ void TileData::parse()
 			if (eResult != tinyxml2::XML_SUCCESS)  {
 				printf("Error cargando gid: %i\n", eResult);
 			}else{
-				printf("gid %d\n",gid_tmp);
+//				printf("gid %d\n",gid_tmp);
 			}
 			vtiles.push_back(gid_tmp);
 			pListElement = pListElement->NextSiblingElement("tile");

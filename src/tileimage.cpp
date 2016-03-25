@@ -5,21 +5,34 @@
  *      Author: Usuario
  */
 
+#include "math.h"
 #include "tileimage.h"
 #include "tiledata.h"
 
 TileImage::TileImage(tinyxml2::XMLElement * t)
 {
+	bmp = NULL;
 	root_tileimage = t;
 	printf("creado tileimage\n");
 	parse();
+	cargar_imagen();
 }
 TileImage::~TileImage()
 {
 
 }
-void TileImage::draw()
+void TileImage::draw(int x,int y)
 {
+	/*
+	 * Dibuja la imagen completa en la posición x,y
+	 */
+	if (bmp != NULL)	al_draw_bitmap(bmp,y,x,0);
+}
+void TileImage::draw(int x,int y,int t)
+{
+	/*
+	 * Dibuja el tile t en la posición x,y
+	 */
 
 }
 void TileImage::parse()
@@ -78,3 +91,79 @@ void TileImage::parse()
 	}
 
 }
+void TileImage::cargar_imagen()
+{
+	ALLEGRO_PATH   				*path;
+	int 						R,G,B,i;
+	std::string::iterator		it; // The string iterator.
+	std::string					string_tmp;
+
+	/*
+	* para crear path relativos y poder distribuir el programa y ejecutarlo
+	* fuera del IDE
+	*/
+
+	path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+	al_remove_path_component(path,-1);
+	al_append_path_component(path, "resources");
+
+	if (source != "") {
+		al_set_path_filename(path, source.c_str());
+
+		bmp = al_load_bitmap(al_path_cstr(path, '/'));
+		if(bmp == NULL)
+		{
+			al_show_native_message_box(al_get_current_display(), "Ventana de error",
+									   "error fatal", "Error al cargar resource bitmap",
+									   NULL, ALLEGRO_MESSAGEBOX_ERROR);
+			exit(-1);
+		}
+		printf("TILEIMAGE CARGADA\n");
+		if (trans != "") {
+			// Hacemos que no se vea el color definido en trans, formato hex ejm: #FF00FF
+			string_tmp = "";
+			i=0;
+			for (it= trans.begin(); it != trans.end(); it++)
+			{
+			  if ((*it) == '#') continue;
+
+			  string_tmp = string_tmp + (*it);
+			  i++;
+			  switch (i) {
+				  case 2:
+					  R = hex2dec(string_tmp);
+					  string_tmp = "";
+					  break;
+				  case 4:
+					  G = hex2dec(string_tmp);
+					  string_tmp = "";
+					  break;
+				  case 6:
+					  B = hex2dec(string_tmp);
+					  string_tmp = "";
+					  break;
+				  default:
+					  break;
+			  }
+			}
+			al_convert_mask_to_alpha(bmp, al_map_rgb(R,G,B));
+		}
+	}
+}
+
+unsigned long TileImage::hex2dec(std::string hex)
+{
+    unsigned long result = 0;
+    for (int i=0; i<hex.length(); i++) {
+        if (hex[i]>=48 && hex[i]<=57)
+        {
+            result += (hex[i]-48)*pow(16,hex.length()-i-1);
+        } else if (hex[i]>=65 && hex[i]<=70) {
+            result += (hex[i]-55)*pow(16,hex.length( )-i-1);
+        } else if (hex[i]>=97 && hex[i]<=102) {
+            result += (hex[i]-87)*pow(16,hex.length()-i-1);
+        }
+    }
+    return result;
+}
+
