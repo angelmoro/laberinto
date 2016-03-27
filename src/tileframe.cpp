@@ -10,6 +10,12 @@
 
 TileFrame::TileFrame(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	tileid = -1; // The local ID of a tile within the parent tileset.
+	duration = 0; // How long (in milliseconds) this frame should be displayed before advancing to the next frame.
+
 	root_tileframe = t;
 	printf("creado tileframe\n");
 	parse();

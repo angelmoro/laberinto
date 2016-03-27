@@ -10,6 +10,15 @@
 
 TileData::TileData(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	encoding = ""; // The encoding used to encode the tile layer data. When used, it can be "base64" and "csv" at the moment.
+	compression = ""; // The compression used to compress the tile layer data. Tiled Qt supports "gzip" and "zlib".
+//tile
+
+	data = "";
+
 	root_tiledata = t;
 	printf("creado tiledata\n");
 	parse();

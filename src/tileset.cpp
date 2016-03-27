@@ -17,6 +17,20 @@
 
 TileSet::TileSet(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	firstgid = 0; // The first global tile ID of this tileset (this global ID maps to the first tile in this tileset).
+	source = ""; // If this tileset is stored in an external TSX (Tile Set XML) file, this attribute refers to that file. That TSX file has the same structure as the <tileset> element described here. (There is the firstgid attribute missing and this source attribute is also not there. These two attributes are kept in the TMX map, since they are map specific.)
+	name = ""; // The name of this tileset.
+	tilewidth = 0; // The (maximum) width of the tiles in this tileset.
+	tileheight = 0; // The (maximum) height of the tiles in this tileset.
+	spacing = 0; // The spacing in pixels between the tiles in this tileset (applies to the tileset image).
+	margin = 0; // The margin around the tiles in this tileset (applies to the tileset image).
+	tilecount = 0; // The number of tiles in this tileset (since 0.13)
+	columns = 0; // The number of tile columns in the tileset. For image collection tilesets it is editable and is used when displaying the tileset. (since 0.15)
+
+
 	root_tileset = t;
 	printf("creado tileset\n");
 	parse();
@@ -36,8 +50,10 @@ void TileSet::draw(int x,int y,int tile)
 	fila = (tile - firstgid)/columns;
 	columna = (tile - firstgid)%columns;
 
-	tx = columna * tilewidth;
-	ty = fila * tileheight;
+	tx = columna * tilewidth + spacing;
+	ty = fila * tileheight + spacing;
+//	tx = columna * tilewidth + spacing + margin;
+//	ty = fila * tileheight + spacing + margin;
 
 	image->draw(x,y,tx,ty,tilewidth,tileheight);
 }

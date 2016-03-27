@@ -12,6 +12,15 @@
 
 TileLayer::TileLayer(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	name = ""; // The name of the layer.
+	opacity = 1.0; // The opacity of the layer as a value from 0 to 1. Defaults to 1.
+	visible = 1; // Whether the layer is shown (1) or hidden (0). Defaults to 1.
+	offsetx = 0; // Rendering offset for this layer in pixels. Defaults to 0. (since 0.14)
+	offsety = 0; // Rendering offset for this layer in pixels. Defaults to 0. (since 0.14)
+
 	root_tilelayer = t;
 	printf("creado tilelayer\n");
 	parse();
@@ -49,7 +58,7 @@ void TileLayer::parse()
 	}
 	eResult = root_tilelayer->QueryFloatAttribute("opacity", &opacity);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
-		printf("Error opacity firstgid: %i\n", eResult);
+		printf("Error opacity: %i\n", eResult);
 	}else{
 		printf("opacity %f\n",opacity);
 	}
@@ -98,4 +107,12 @@ void TileLayer::parse()
 		data = new TileData(pElement_tmp);
 	}
 
+}
+int TileLayer::get_offsetx()
+{
+	return offsetx;
+}
+int TileLayer::get_offsety()
+{
+	return offsety;
 }

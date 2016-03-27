@@ -10,6 +10,12 @@
 
 TileTerrain::TileTerrain(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	name = ""; // The name of the terrain type.
+	tile = -1; // The local tile-id of the tile that represents the terrain visually
+
 	root_tileterrain = t;
 	printf("creado tileterrain\n");
 	parse();

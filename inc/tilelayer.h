@@ -21,10 +21,11 @@ class TileLayer
 public:
 	TileLayer(tinyxml2::XMLElement * t);
 	~TileLayer();
-	void draw();
 	std::vector<int>::iterator get_begin_iterator();
 	std::vector<int>::iterator get_end_iterator();
 	void parse();
+	int get_offsetx();
+	int get_offsety();
 private:
 
 	std::string name; // The name of the layer.

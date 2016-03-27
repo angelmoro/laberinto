@@ -12,6 +12,20 @@
 
 TileObject::TileObject(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	id = -1; // Unique ID of the object. Each object that is placed on a map gets a unique id. Even if an object was deleted, no object gets the same ID. Can not be changed in Tiled Qt. (since Tiled 0.11)
+	name = ""; // The name of the object. An arbitrary string.
+	type = ""; // The type of the object. An arbitrary string.
+	x = 0; // The x coordinate of the object in pixels.
+	y = 0; // The y coordinate of the object in pixels.
+	width = 0; // The width of the object in pixels (defaults to 0).
+	height = 0; // The height of the object in pixels (defaults to 0).
+	rotation = 0; // The rotation of the object in degrees clockwise (defaults to 0). (since 0.10)
+	gid = -1; // An reference to a tile (optional).
+	visible = 1; // Whether the object is shown (1) or hidden (0). Defaults to 1. (since 0.9)
+
 	root_tileobject = t;
 	printf("creado tileobject\n");
 	parse();

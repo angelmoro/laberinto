@@ -9,6 +9,12 @@
 
 TileProperty::TileProperty(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	name = ""; // The name of the property.
+	value = ""; // The value of the property.
+
 	root_tileproperty = t;
 	printf("creado tileproperty\n");
 }

@@ -16,10 +16,11 @@ TileImageLayer::TileImageLayer(tinyxml2::XMLElement * t)
 /*
  * Establecemos valores por defecto
  */
-	offsetx = 0;
-	offsety = 0;
-	opacity = 1;
-	visible = 1; // la version de tiled que estoy usando no genera el atributo "visible"	TBD
+	name = ""; // The name of the image layer.
+	offsetx = 0 ; // Rendering offset of the image layer in pixels. Defaults to 0. (since 0.15)
+	offsety = 0; // Rendering offset of the image layer in pixels. Defaults to 0. (since 0.15)
+	opacity = 1.0; // The opacity of the layer as a value from 0 to 1. Defaults to 1.
+	visible = 1; // Whether the layer is shown (1) or hidden (0). Defaults to 1.
 
 	root_tileimagelayer = t;
 	printf("creado tileimagelayer\n");

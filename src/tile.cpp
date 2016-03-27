@@ -14,6 +14,13 @@
 
 Tile::Tile(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	id = -1; // The local tile ID within its tileset.
+	terrain = ""; // Defines the terrain type of each corner of the tile, given as comma-separated indexes in the terrain types array in the order top-left, top-right, bottom-left, bottom-right. Leaving out a value means that corner has no terrain. (optional) (since 0.9)
+	probability = 0; // A percentage indicating the probability that this tile is chosen when it competes with others while editing with the terrain tool. (optional) (since 0.9)
+
 	root_tile = t;
 	printf("creado tile\n");
 	parse();

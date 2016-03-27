@@ -11,6 +11,18 @@
 
 TileObjectGroup::TileObjectGroup(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	name = ""; // The name of the object group.
+	color = 0; // The color used to display the objects in this group.
+
+	opacity = 1; // The opacity of the layer as a value from 0 to 1. Defaults to 1.
+	visible = 1; // Whether the layer is shown (1) or hidden (0). Defaults to 1.
+	offsetx = 0; // Rendering offset for this object group in pixels. Defaults to 0. (since 0.14)
+	offsety = 0; // Rendering offset for this object group in pixels. Defaults to 0. (since 0.14)
+	draworder = "topdown"; // Whether the objects are drawn according to the order of appearance ("index") or sorted by their y-coordinate ("topdown"). Defaults to "topdown".
+
 	root_tileobjectgroup = t;
 	printf("creado tileobjectgroup\n");
 	parse();

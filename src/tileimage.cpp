@@ -11,7 +11,17 @@
 
 TileImage::TileImage(tinyxml2::XMLElement * t)
 {
+	/*
+	 * Valores por defecto
+	 */
+	format = ""; // Used for embedded images, in combination with a data child element. Valid values are file extensions like png, gif, jpg, bmp, etc. (since 0.9)
+	source = ""; // The reference to the tileset image file (Tiled supports most common image formats).
+	trans = ""; // Defines a specific color that is treated as transparent (example value: "#FF00FF" for magenta). Up until Tiled 0.12, this value is written out without a # but this is planned to change.
+	width = 0; // The image width in pixels (optional, used for tile index correction when the image changes)
+	height = 0; // The image height in pixels (optional)
+
 	bmp = NULL;
+
 	root_tileimage = t;
 	printf("creado tileimage\n");
 	parse();
@@ -24,11 +34,11 @@ TileImage::~TileImage()
 void TileImage::draw(int x,int y,float opacity)
 {
 	/*
-	 * Dibuja la imagen completa en la posición x,y del display
+	 * Dibuja la imagen completa en la posición x,y del display con un determinado grado de opacidad
 	 */
-	// ver en alegro como tratar la opacidad TBD
-//	if (bmp != NULL)	al_draw_bitmap(bmp,y,x,0);
+
 	if (bmp != NULL) al_draw_tinted_bitmap(bmp, al_map_rgba_f(1, 1, 1, opacity), x, y, 0);
+
 }
 void TileImage::draw(int x,int y,int tx,int ty,int tw,int th)
 {
@@ -124,7 +134,6 @@ void TileImage::cargar_imagen()
 									   NULL, ALLEGRO_MESSAGEBOX_ERROR);
 			exit(-1);
 		}
-		printf("TILEIMAGE CARGADA\n");
 		if (trans != "") {
 			// Hacemos que no se vea el color definido en trans, formato hex ejm: #FF00FF
 			string_tmp = "";
@@ -160,7 +169,7 @@ void TileImage::cargar_imagen()
 unsigned long TileImage::hex2dec(std::string hex)
 {
     unsigned long result = 0;
-    for (int i=0; i<hex.length(); i++) {
+    for (unsigned int i=0; i<hex.length(); i++) {
         if (hex[i]>=48 && hex[i]<=57)
         {
             result += (hex[i]-48)*pow(16,hex.length()-i-1);
