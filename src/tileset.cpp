@@ -27,13 +27,17 @@ TileSet::~TileSet()
 }
 void TileSet::draw(int x,int y,int tile)
 {
+	int fila, columna;
 	int tx,ty; // posicion dentro del tileset, calcularlas a partir del tile
+
 	/*
 	 * Calcular las posiciones en la imagen a partir de tile
 	 */
+	fila = (tile - firstgid)/columns;
+	columna = (tile - firstgid)%columns;
 
-	tx = 0; //calcular
-	ty = 0; //calcular
+	tx = columna * tilewidth;
+	ty = fila * tileheight;
 
 	image->draw(x,y,tx,ty,tilewidth,tileheight);
 }
@@ -176,5 +180,12 @@ void TileSet::parse()
 	}
 
 }
-
+bool TileSet::contiene_tile(int tile)
+{
+	if ((tile >= firstgid)&&(tile < firstgid+tilecount)) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
 

@@ -10,6 +10,7 @@
 
 #include <string>
 #include <list>
+#include <vector>
 #include <tinyxml2.h>
 
 class TileData;
@@ -21,6 +22,8 @@ public:
 	TileLayer(tinyxml2::XMLElement * t);
 	~TileLayer();
 	void draw();
+	std::vector<int>::iterator get_begin_iterator();
+	std::vector<int>::iterator get_end_iterator();
 	void parse();
 private:
 

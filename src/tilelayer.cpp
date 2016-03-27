@@ -20,6 +20,14 @@ TileLayer::~TileLayer()
 {
 
 }
+std::vector<int>::iterator TileLayer::get_begin_iterator()
+{
+	return data->get_begin_iterator();
+}
+std::vector<int>::iterator TileLayer::get_end_iterator()
+{
+	return data->get_end_iterator();
+}
 void TileLayer::parse()
 {
 	tinyxml2::XMLError 			eResult;

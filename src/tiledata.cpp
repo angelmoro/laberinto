@@ -6,6 +6,7 @@
  */
 
 #include "tiledata.h"
+#include <vector>
 
 TileData::TileData(tinyxml2::XMLElement * t)
 {
@@ -16,6 +17,36 @@ TileData::TileData(tinyxml2::XMLElement * t)
 TileData::~TileData()
 {
 
+}
+void TileData::rewind()
+{
+	vtiles_iter=vtiles.begin();
+}
+int TileData::next()
+{
+	int tmp_t;
+	tmp_t=*vtiles_iter;
+	if (vtiles_iter==vtiles.end()) return -1;
+	vtiles_iter++;
+	return tmp_t;
+}
+int TileData::current()
+{
+	if (vtiles_iter==vtiles.end()) return -1;
+	else
+		return *vtiles_iter;
+}
+int TileData::num_tiles()
+{
+	return vtiles.size();
+}
+std::vector<int>::iterator TileData::get_begin_iterator()
+{
+	return vtiles.begin();
+}
+std::vector<int>::iterator TileData::get_end_iterator()
+{
+	return vtiles.end();
 }
 void TileData::parse()
 {
@@ -77,8 +108,8 @@ void TileData::parse()
 			  ((*it) == '9')) {
 			  string_tmp = string_tmp + (*it);
 		  }
-
 		}
+		vtiles.push_back(atoi(string_tmp.c_str()));//el ultimo elemento no esta seguido de ","
 
 	} else if ((encoding.compare("") == 0)&&((compression.compare("") == 0))){
 

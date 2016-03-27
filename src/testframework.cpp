@@ -85,8 +85,9 @@ void TestFrameWork::main()
 
 		// prueba de tiled TBD
 
-		 TileMap mapa("resources/example1.tmx");
+		 TileMap mapa("resources/dostileset.tmx");
 		 mapa.draw();
+
 
 
 

@@ -5,6 +5,7 @@
  *      Author: Usuario
  */
 
+#include <vector>
 #include "tilemap.h"
 #include "tileset.h"
 #include "tilelayer.h"
@@ -19,7 +20,11 @@ TileMap::TileMap(std::string file)
 	tinyxml2::XMLError eResult;
 
 	eResult = xmlDoc.LoadFile(file.c_str());
-	if (eResult != tinyxml2::XML_SUCCESS)  {printf("Error: %i\n", eResult);exit(-1);}
+	if (eResult != tinyxml2::XML_SUCCESS)
+	{
+		printf("Error: %i no puedo cargar el fichero %s\n", eResult,file.c_str());
+		exit(-1);
+	}
 	parse();
 
 }
@@ -29,6 +34,12 @@ TileMap::~TileMap()
 }
 void TileMap::draw()
 {
+	TileSet * tileset_tmp;
+	std::vector<int>::iterator tiledata_tmp_iter;
+	int tile_tmp;
+	int x,y;
+	int fila,columna;
+
 	//revisar el orden de dibujo de todos los elementos del mapa TBD
 	/*
 	 * Iterar para dibujar todos los imagelayers
@@ -39,6 +50,61 @@ void TileMap::draw()
 	{
 		(*tileimagelayers_iter)->draw();
 	}
+
+	/*
+	 * Iterar para dibujar todos los layers
+	 */
+	for (tilelayers_iter=tilelayers.begin();
+		 tilelayers_iter!=tilelayers.end();
+		 tilelayers_iter++)
+	{
+		/*
+		 * Para cada layer iteramos por sus datos obteniendo tiles
+		 */
+		fila = 0;
+		columna = 0;
+		for (tiledata_tmp_iter=(*tilelayers_iter)->get_begin_iterator();
+				 tiledata_tmp_iter!=(*tilelayers_iter)->get_end_iterator();
+				 tiledata_tmp_iter++,columna++)
+		{
+			/*
+			 * Comprobamos si hay cambio de fila
+			 * Estamos asumiendo un render izquierda->derecha arriba-abajo
+			 */
+
+			if (columna == width ) {columna = 0;fila++;}
+
+			/*
+			 * obtenemos el tile
+			 */
+
+			tile_tmp = (*tiledata_tmp_iter);
+
+			/*
+			 * determinamos el tileset al que pertenece
+			 */
+
+			tileset_tmp = tileset_contiene_tile(tile_tmp);
+
+			/*
+			 * Calculamos la posicion x,y donde dibujar el tile
+			 * Estamos asumiendo un render izquierda->derecha arriba-abajo
+			 */
+
+			x = columna * tilewidth;
+			y = fila * tileheight;
+
+			/*
+			 * dibujamos el tile
+			 */
+
+			if (tileset_tmp != NULL) tileset_tmp->draw(x,y,tile_tmp);
+
+		}
+	}
+
+
+
 }
 void TileMap::parse()
 {
@@ -221,4 +287,15 @@ void TileMap::parse()
 
 
 
+}
+
+TileSet * TileMap::tileset_contiene_tile(int tile)
+{
+	for (tilesets_iter=tilesets.begin();
+		 tilesets_iter!=tilesets.end();
+		 tilesets_iter++)
+	{
+		if ((*tilesets_iter)->contiene_tile(tile)) return (*tilesets_iter);
+	}
+	return NULL;
 }

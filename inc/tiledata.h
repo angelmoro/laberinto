@@ -19,6 +19,14 @@ public:
 	TileData(tinyxml2::XMLElement * t);
 	~TileData();
 	void parse();
+	void rewind();
+	int next();
+	int current();
+	int num_tiles();
+
+	std::vector<int>::iterator get_begin_iterator();
+	std::vector<int>::iterator get_end_iterator();
+
 private:
 
 	std::string encoding; // The encoding used to encode the tile layer data. When used, it can be "base64" and "csv" at the moment.

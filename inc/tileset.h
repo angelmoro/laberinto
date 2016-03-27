@@ -26,6 +26,7 @@ public:
 	~TileSet();
 	void draw(int x,int y,int tile);
 	void parse();
+	bool contiene_tile(int tile);
 private:
 
 	int firstgid; // The first global tile ID of this tileset (this global ID maps to the first tile in this tileset).

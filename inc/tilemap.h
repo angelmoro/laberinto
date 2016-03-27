@@ -26,8 +26,13 @@ public:
 	TileMap(std::string file);
 	~TileMap();
 	void draw();
+
 	void parse();
 private:
+	TileSet * tileset_contiene_tile(int tile);
+/*
+ * Tile area
+ */
 	std::string version; // The TMX format version, generally 1.0
 	std::string orientation; // Map orientation. Tiled supports "orthogonal", "isometric", "staggered" (since 0.9) and "hexagonal" (since 0.11).
 	std::string renderorder; // The order in which tiles on tile layers are rendered. Valid values are right-down (the default), right-up, left-down and left-up. In all cases, the map is drawn row-by-row. (since 0.10, but only supported for orthogonal maps at the moment)
