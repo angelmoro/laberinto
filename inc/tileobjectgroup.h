@@ -24,6 +24,8 @@ public:
 	~TileObjectGroup();
 	void draw();
 	void parse();
+	std::list<TileObject*>::iterator get_objects_begin_iterator();
+	std::list<TileObject*>::iterator get_objects_end_iterator();
 private:
 
 	std::string name; // The name of the object group.

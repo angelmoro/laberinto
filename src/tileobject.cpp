@@ -26,6 +26,7 @@ TileObject::TileObject(tinyxml2::XMLElement * t)
 	gid = -1; // An reference to a tile (optional).
 	visible = 1; // Whether the object is shown (1) or hidden (0). Defaults to 1. (since 0.9)
 
+
 	root_tileobject = t;
 	printf("creado tileobject\n");
 	parse();
@@ -44,7 +45,7 @@ void TileObject::parse()
 	TileProperty				*tp;
 
 	/*
-	 * Se extraen todos los atributos del elemento tileset
+	 * Se extraen todos los atributos del elemento object
 	 */
 	eResult = root_tileobject->QueryIntAttribute("id", &id);
 	if (eResult != tinyxml2::XML_SUCCESS)  {

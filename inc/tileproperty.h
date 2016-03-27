@@ -17,6 +17,7 @@ class TileProperty
 public:
 	TileProperty(tinyxml2::XMLElement * t);
 	~TileProperty();
+	void parse();
 private:
 
 	std::string name; // The name of the property.

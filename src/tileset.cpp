@@ -47,13 +47,13 @@ void TileSet::draw(int x,int y,int tile)
 	/*
 	 * Calcular las posiciones en la imagen a partir de tile
 	 */
-	fila = (tile - firstgid)/columns;
-	columna = (tile - firstgid)%columns;
+	fila = (tile - firstgid)/columns; // cociente
+	columna = (tile - firstgid)%columns; // resto
 
-	tx = columna * tilewidth + spacing;
-	ty = fila * tileheight + spacing;
-//	tx = columna * tilewidth + spacing + margin;
-//	ty = fila * tileheight + spacing + margin;
+	// El margin no tengo claro como tratarlo TBD
+	tx = columna * (tilewidth + spacing);
+	ty = fila * (tileheight + spacing);
+
 
 	image->draw(x,y,tx,ty,tilewidth,tileheight);
 }

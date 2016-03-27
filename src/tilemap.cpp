@@ -123,8 +123,14 @@ void TileMap::draw()
 		}
 	}
 
-
-
+}
+std::list<TileObjectGroup*>::iterator TileMap::get_objectgroups_begin_iterator()
+{
+	return tileobjectgroups.begin();
+}
+std::list<TileObjectGroup*>::iterator TileMap::get_objectgroups_end_iterator()
+{
+	return tileobjectgroups.end();
 }
 void TileMap::parse()
 {

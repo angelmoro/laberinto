@@ -31,6 +31,14 @@ TileObjectGroup::~TileObjectGroup()
 {
 
 }
+std::list<TileObject*>::iterator TileObjectGroup::get_objects_begin_iterator()
+{
+	return objects.begin();
+}
+std::list<TileObject*>::iterator TileObjectGroup::get_objects_end_iterator()
+{
+	return objects.end();
+}
 
 void TileObjectGroup::parse()
 {
@@ -110,13 +118,7 @@ void TileObjectGroup::parse()
 	/*
 	 * Cargamos la lista de objetos
 	 */
-	pElement_tmp = root_tileobjectgroup->FirstChildElement("object"); //nos saltamos el tag properties
-	if (pElement_tmp != NULL) {
-		pListElement = pElement_tmp->FirstChildElement("object");
-	}else {
-		pListElement = NULL;
-		printf("no hay ningun elemento properties\n");
-	}
+
 	pListElement = root_tileobjectgroup->FirstChildElement("object");
 	if (pListElement == NULL) {printf("no hay ningun elemento object\n");}
 	while (pListElement != NULL)

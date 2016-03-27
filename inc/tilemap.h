@@ -20,14 +20,17 @@ class TileSet;
 class TileProperty;
 
 
+
 class TileMap
 {
 public:
 	TileMap(std::string file);
 	~TileMap();
 	void draw();
-
+	std::list<TileObjectGroup*>::iterator get_objectgroups_begin_iterator();
+	std::list<TileObjectGroup*>::iterator get_objectgroups_end_iterator();
 	void parse();
+
 private:
 	TileSet * tileset_contiene_tile(int tile);
 /*
