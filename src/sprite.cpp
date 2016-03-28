@@ -11,6 +11,8 @@
 
 Sprite::Sprite(Actor *aowner) : ActorGraphic(aowner)
 {
+	actual_frame=0;
+	actual_tick=0;
 }
 void Sprite::init()
 {

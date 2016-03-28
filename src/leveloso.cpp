@@ -23,6 +23,7 @@
 #include "bolsadinero.h"
 #include "records.h"
 #include "levelosoconf.h"
+#include "tilemap.h"
 
 LevelOso::LevelOso(ActorManager * b,LevelManager * l,
 		           int n, int c, int a, int v, int hv,
@@ -220,11 +221,12 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 		                     int c,int a,int v,int hv,int hr, int pos_x,int pos_y,
 							 int rt, int bt, int rtd, int btd)
 {
-	  ALLEGRO_BITMAP *bmp;
-	  LevelOso		 *level_oso_tmp;
-	  LevelGraphic   *lg;
-	  ALLEGRO_PATH   *path;
-	  ALLEGRO_FONT 	 *font;
+	  ALLEGRO_BITMAP 	*bmp;
+	  LevelOso		 	*level_oso_tmp;
+	  LevelGraphic   	*lg;
+	  ALLEGRO_PATH   	*path;
+	  ALLEGRO_FONT 	 	*font;
+	  TileMap			*m;
 
 	 /*
 	 * para crear path relativos y poder distribuir el programa y ejecutarlo
@@ -235,11 +237,11 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 	 al_remove_path_component(path,-1);
 	 al_append_path_component(path, "resources");
 
-	 al_set_path_filename(path, "desierto1.png");
+//	 al_set_path_filename(path, "desierto1.png");
 //	 al_set_path_filename(path, "score-fondo.png");
 
 	 level_oso_tmp = new LevelOso(actmgr,levmgr,nivel,c,a,v,hv,hr,rt,bt,rtd,btd);
-
+/*
 	 bmp = al_load_bitmap(al_path_cstr(path, '/'));
 	 if(bmp == NULL)
 	 {
@@ -248,7 +250,14 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 								   NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		exit(-1);
 	 }
-	 lg=new LevelGraphic(level_oso_tmp, bmp);
+*/
+	 /*
+	  * Creamos el mapa del nivel
+	  */
+
+	 m = new TileMap("resources/avalon.tmx");
+
+	 lg=new LevelGraphic(level_oso_tmp, m);
 
 	 al_set_path_filename(path, "comic.ttf");
 	 font = NULL;
@@ -282,7 +291,7 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 
 	 level_oso_tmp->set_x(pos_x);
 	 level_oso_tmp->set_y(pos_y);
-	 level_oso_tmp->set_is_detected(true);
+	 level_oso_tmp->set_is_detected(false); //TDB revisar si el nivel necesita colisionar
 	 level_oso_tmp->set_team(TEAM_LEVEL);
 	 level_oso_tmp->set_collision_method(CollisionManager::PP_COLLISION);
 

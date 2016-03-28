@@ -13,10 +13,13 @@
 #include "actorgraphic.h"
 #include "mask.h"
 
+
+class TileMap;
+
 class LevelGraphic : public ActorGraphic
 {
 	public:
-		LevelGraphic(Actor *aowner, ALLEGRO_BITMAP *b);
+		LevelGraphic(Actor *aowner, TileMap *m);
 		void draw();
 		int get_w();
 		int get_h();
@@ -30,6 +33,7 @@ class LevelGraphic : public ActorGraphic
 		ALLEGRO_FONT 	*font;
 		ALLEGRO_FONT 	*font_transito;
 		string 			title;
+		TileMap			* mapa;
 
 };
 

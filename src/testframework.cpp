@@ -43,7 +43,7 @@
 
 using namespace tinyxml2;
 
-//#include <tmx.h>
+
 
 void TestFrameWork::main()
 {
@@ -73,28 +73,9 @@ void TestFrameWork::main()
 	 al_append_path_component(path, "resources");
 
 
-/*
-	  tmx_map *map = tmx_load("practica2.tmx");
-	  if (!map) {
-	    tmx_perror("tmx_load");
-	    exit (-1);
-	  }
-	   ...
-	  tmx_map_free(map);
-*/
-
-		// prueba de tiled TBD
-
-		 TileMap mapa("resources/avalon.tmx");
-		 mapa.draw();
-
-
-
-
-
 	/*
 	 * Creamos 20 niveles. Los hay que crear los primeros si se va a utilizar fondo
-	 * en el nivel, para que a la hora de dibujar, primero pinte el fondo del nivel y
+	 * en el nivel, para que a la hora de dibujar, primero pinte el fondo del nivel o mapa y
 	 * despues el resto de actores. Son los primeros en añadirse a la lista de
 	 * actores del actor manager.
 	 */

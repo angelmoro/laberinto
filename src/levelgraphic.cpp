@@ -13,18 +13,28 @@
 #include "levelgraphic.h"
 #include "mask.h"
 #include "level.h"
+#include "tilemap.h"
 
-LevelGraphic::LevelGraphic(Actor *aowner, ALLEGRO_BITMAP *b) : ActorGraphic(aowner)
+LevelGraphic::LevelGraphic(Actor *aowner, TileMap *m) : ActorGraphic(aowner)
 {
-	bmp=b;
-	mask=new Mask;
-	mask->create(bmp);
+//	bmp=b;
+//	mask=new Mask;
+//	mask->create(bmp);
+
+
+	// prueba de tiled TBD
+
+	 mapa =  m;
+
+
+
 
 }
 void LevelGraphic::draw()
 {
 	if (nivel_activo()) {
-		al_draw_bitmap(bmp,0,0,0);
+//		al_draw_bitmap(bmp,0,0,0);
+		 mapa->draw();
 
 		switch (get_estado())
 		{

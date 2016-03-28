@@ -23,8 +23,8 @@
 		},
 		{
 			"jlevel" : 5,
-			"jnombre" : "QWE",
-			"jpuntuacion" : 200
+			"jnombre" : "CC",
+			"jpuntuacion" : 210
 		}
 	]
 }

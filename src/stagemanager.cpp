@@ -78,11 +78,11 @@ void StageManager::draw()
 
 /*
  * Lo comento mientras hago pruebas de tiled TBD
+ */
+//	al_clear_to_color(al_map_rgb(0,0,0));
 
-	al_clear_to_color(al_map_rgb(0,0,0));
 
-
-	if (fondo != NULL) al_draw_bitmap(fondo,0,0,0);
+//	if (fondo != NULL) al_draw_bitmap(fondo,0,0,0);
 
 	game->actor_manager->rewind();
 
@@ -90,7 +90,7 @@ void StageManager::draw()
 	{
 		tmp->draw();
 	}
-*/
+
 	al_flip_display();
 }
 ALLEGRO_DISPLAY * StageManager::get_display()
