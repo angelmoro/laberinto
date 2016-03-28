@@ -16,8 +16,7 @@ Sprite::Sprite(Actor *aowner) : ActorGraphic(aowner)
 }
 void Sprite::init()
 {
-	actual_frame=0;
-	actual_tick=0;
+
 }
 void Sprite::add_frame(ALLEGRO_BITMAP *bmp, int cx, int cy, int ticks)
 {

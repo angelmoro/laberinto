@@ -26,6 +26,9 @@ public:
 	void parse();
 	int get_offsetx();
 	int get_offsety();
+	int get_tile_gid(int pos);
+	bool get_visible();
+	std::string get_name();
 private:
 
 	std::string name; // The name of the layer.

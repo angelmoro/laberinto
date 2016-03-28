@@ -10,6 +10,7 @@
 
 #include <string>
 #include <list>
+#include <set>
 #include <tinyxml2.h>
 
 
@@ -30,6 +31,9 @@ public:
 	std::list<TileObjectGroup*>::iterator get_objectgroups_begin_iterator();
 	std::list<TileObjectGroup*>::iterator get_objectgroups_end_iterator();
 	void parse();
+	int get_tile_gid(TileLayer * layer,int pixel_x,int pixel_y);
+	void crear_colision_set(std::string meta_tileset,std::string atribute,std::set<int> * colision_set);
+	TileLayer * get_tilelayer(std::string name);
 
 private:
 	TileSet * tileset_contiene_tile(int tile);

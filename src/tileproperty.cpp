@@ -49,3 +49,11 @@ void TileProperty::parse()
 	}
 
 }
+std::string TileProperty::get_name()
+{
+	return name;
+}
+std::string TileProperty::get_value()
+{
+	return value;
+}

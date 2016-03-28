@@ -12,6 +12,7 @@
 #include "tileobjectgroup.h"
 #include "tileimagelayer.h"
 #include "tileproperty.h"
+#include "tile.h"
 
 
 
@@ -71,6 +72,12 @@ void TileMap::draw()
 		 tilelayers_iter!=tilelayers.end();
 		 tilelayers_iter++)
 	{
+		/*
+		 * chequeamos si el layer es visible
+		 */
+
+		if (!((*tilelayers_iter)->get_visible())) continue;
+
 		/*
 		 * Para cada layer iteramos por sus datos obteniendo tiles
 		 */
@@ -322,6 +329,68 @@ TileSet * TileMap::tileset_contiene_tile(int tile)
 		 tilesets_iter++)
 	{
 		if ((*tilesets_iter)->contiene_tile(tile)) return (*tilesets_iter);
+	}
+	return NULL;
+}
+int TileMap::get_tile_gid(TileLayer * layer,int pixel_x,int pixel_y)
+{
+	int tile_x,tile_y,pos;
+
+	tile_x = pixel_x / width;
+	tile_y = pixel_y / height;
+
+	pos = width * tile_y + tile_x;//posicion lineal en el vector de almacenamiento
+
+	return layer->get_tile_gid(pos);
+}
+void TileMap::crear_colision_set(std::string meta_tileset,std::string atribute,std::set<int> * colision_set)
+{
+	std::list<TileProperty*>::iterator properties_iter;
+	std::list<Tile*>::iterator tiles_iter;
+	/*
+	 * Iterar para encontrar el meta tileset
+	 */
+	for (tilesets_iter=tilesets.begin();
+		 tilesets_iter!=tilesets.end();
+		 tilesets_iter++)
+	{
+		if ((*tilesets_iter)->get_name() == meta_tileset) break;
+	}
+	/*
+	 * Iterar por todos los tile del tileset
+	 */
+	for (tiles_iter=(*tilesets_iter)->get_tiles_begin_iterator();
+		 tiles_iter!=(*tilesets_iter)->get_tiles_end_iterator();
+		 tiles_iter++)
+	{
+		/*
+		 * Iterar por todas las propiedades del tile
+		 */
+
+		for (properties_iter=(*tiles_iter)->get_properties_begin_iterator();
+			 properties_iter!=(*tiles_iter)->get_properties_end_iterator();
+			 properties_iter++)
+		{
+			if (((*properties_iter)->get_name() == atribute)&&
+					((*properties_iter)->get_value() == "true"))
+			{
+				/*
+				 * Al id del tile le sumo el firstgid del tile set para
+				 * obtener el gid del tile y este es el que insertamos en el set
+				 * de colision
+				 */
+				colision_set->insert((*tilesets_iter)->get_firstgid()+(*tiles_iter)->get_id());
+			}
+		}
+	}
+}
+TileLayer * TileMap::get_tilelayer(std::string name)
+{
+	for (tilelayers_iter=tilelayers.begin();
+			 tilelayers_iter!=tilelayers.end();
+			 tilelayers_iter++)
+	{
+		if ((*tilelayers_iter)->get_name() == name) return (*tilelayers_iter);
 	}
 	return NULL;
 }

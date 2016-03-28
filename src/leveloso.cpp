@@ -291,7 +291,7 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 
 	 level_oso_tmp->set_x(pos_x);
 	 level_oso_tmp->set_y(pos_y);
-	 level_oso_tmp->set_is_detected(false); //TDB revisar si el nivel necesita colisionar
+	 level_oso_tmp->set_is_detected(false); //TDB revisar si el nivel necesita colisionar el bmp que se utilizaba para calcular la colision se ha substituido por el mapa
 	 level_oso_tmp->set_team(TEAM_LEVEL);
 	 level_oso_tmp->set_collision_method(CollisionManager::PP_COLLISION);
 

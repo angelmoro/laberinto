@@ -26,6 +26,9 @@ public:
 	Tile(tinyxml2::XMLElement * t);
 	~Tile();
 	void parse();
+	std::list<TileProperty*>::iterator get_properties_begin_iterator();
+	std::list<TileProperty*>::iterator get_properties_end_iterator();
+	int get_id();
 private:
 
 	int id; // The local tile ID within its tileset.

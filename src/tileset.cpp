@@ -204,4 +204,27 @@ bool TileSet::contiene_tile(int tile)
 		return FALSE;
 	}
 }
-
+std::string TileSet::get_name()
+{
+	return name;
+}
+std::list<TileProperty*>::iterator TileSet::get_properties_begin_iterator()
+{
+	return properties.begin();
+}
+std::list<TileProperty*>::iterator TileSet::get_properties_end_iterator()
+{
+	return properties.end();
+}
+std::list<Tile*>::iterator TileSet::get_tiles_begin_iterator()
+{
+	return tiles.begin();
+}
+std::list<Tile*>::iterator TileSet::get_tiles_end_iterator()
+{
+	return tiles.end();
+}
+int TileSet::get_firstgid()
+{
+	return firstgid;
+}

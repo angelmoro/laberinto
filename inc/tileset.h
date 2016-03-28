@@ -27,6 +27,12 @@ public:
 	void draw(int x,int y,int tile);
 	void parse();
 	bool contiene_tile(int tile);
+	std::string get_name();
+	std::list<TileProperty*>::iterator get_properties_begin_iterator();
+	std::list<TileProperty*>::iterator get_properties_end_iterator();
+	std::list<Tile*>::iterator get_tiles_begin_iterator();
+	std::list<Tile*>::iterator get_tiles_end_iterator();
+	int get_firstgid();
 private:
 
 	int firstgid; // The first global tile ID of this tileset (this global ID maps to the first tile in this tileset).

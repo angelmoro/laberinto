@@ -108,6 +108,17 @@ void Tile::parse()
 		printf("no hay ningun elemento objectgroup\n");
 	}
 }
-
+std::list<TileProperty*>::iterator Tile::get_properties_begin_iterator()
+{
+	return properties.begin();
+}
+std::list<TileProperty*>::iterator Tile::get_properties_end_iterator()
+{
+	return properties.end();
+}
+int Tile::get_id()
+{
+	return id;
+}
 
 

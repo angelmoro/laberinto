@@ -12,18 +12,18 @@
 			"jpuntuacion" : 380
 		},
 		{
+			"jlevel" : 6,
+			"jnombre" : "QWE",
+			"jpuntuacion" : 250
+		},
+		{
 			"jlevel" : 5,
 			"jnombre" : "KLKKKKKKK",
 			"jpuntuacion" : 240
 		},
 		{
 			"jlevel" : 5,
-			"jnombre" : "ASDA",
-			"jpuntuacion" : 210
-		},
-		{
-			"jlevel" : 5,
-			"jnombre" : "CC",
+			"jnombre" : "DDDD",
 			"jpuntuacion" : 210
 		}
 	]

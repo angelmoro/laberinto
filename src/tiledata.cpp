@@ -158,3 +158,13 @@ void TileData::parse()
 */
 
 }
+int TileData::get_tile_gid(int pos)
+{
+
+	int i;
+
+	for(i=0,vtiles_iter=vtiles.begin();i!=pos;vtiles_iter++) continue;
+
+	return (*vtiles_iter);
+
+}

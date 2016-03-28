@@ -27,6 +27,8 @@ public:
 	std::vector<int>::iterator get_begin_iterator();
 	std::vector<int>::iterator get_end_iterator();
 
+	int get_tile_gid(int pos);
+
 private:
 
 	std::string encoding; // The encoding used to encode the tile layer data. When used, it can be "base64" and "csv" at the moment.

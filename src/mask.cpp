@@ -61,7 +61,7 @@ void Mask::create(ALLEGRO_BITMAP *bmp)
 /*
  * Esta condicion es para no incluir en la mascara el color que se haya establecido como
  * transparente para esta imagen.
- * no tengo claro como hacerlo en allegro 5 por eso lo dejo comentado
+ * no tengo claro como hacerlo en allegro 5 por eso lo dejo comentado TBD
 
 
 				if ((p!=bitmap_mask_color(bmp)) && (p>=0))

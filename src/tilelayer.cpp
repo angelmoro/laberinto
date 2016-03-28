@@ -116,3 +116,15 @@ int TileLayer::get_offsety()
 {
 	return offsety;
 }
+int TileLayer::get_tile_gid(int pos)
+{
+	return data->get_tile_gid(pos);
+}
+bool TileLayer::get_visible()
+{
+	return visible;
+}
+std::string TileLayer::get_name()
+{
+	return name;
+}
