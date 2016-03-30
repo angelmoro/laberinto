@@ -17,6 +17,7 @@
 
 class TileMap;
 class TileLayer;
+class ColisionSet;
 
 class CollisionManager
 {
@@ -28,18 +29,23 @@ class CollisionManager
 			PP_COLLISION
 		}collision_method_t;
 		void update();
-		void activar_colision_set(TileMap *mapa,
-								   std::string meta_tileset,
-								   std::string attr_colisionable,
-								   std::string meta_layer);
-		void desactivar_colision_set();
+		void registrar_mapa(TileMap *mapa,
+							std::string meta_tileset,
+							std::string attr_colisionable,
+							std::string meta_layer);
+		void desregistrar_mapa();
+		void add_colision_set(std::string nombre_colision_set);
+		void del_colision_set(std::string nombre_colision_set);
 	protected:
 		Game *game;
 	private:
+		list<ColisionSet*> 				colision_sets;
+		list<ColisionSet*>::iterator 	colision_sets_iter;
 
-		std::set<int> 			* colision_set;
-		TileLayer 				* meta_layer_activo;
-		TileMap 				* mapa_activo;
+		TileLayer 						* meta_layer_activo;
+		TileMap 						* mapa_activo;
+		std::string 					attr_col;
+		std::string 					meta_tileset_activo;
 };
 
 

@@ -233,20 +233,15 @@ void OsoHormiguero::hit(Actor *who, int damage)
 	}
 }
 
-void OsoHormiguero::hit(int objeto, int damage)
+void OsoHormiguero::hit(std::string objeto, int damage)
 {
-/*
- * Por ahora no distingo objetos colisinables en el mapa
- * la colision con cualquiera de ellos tendra el mismo comprtamiento
- * el parametro objeto es fijo y siempre valdra 0
- */
-	switch (objeto)
-	{
-		case 0:
-//			deshacer_posicion();
-			break;
-		default:
-			break;
+	if (objeto == "agua") {
+		deshacer_posicion();
+		return;
+	};
+	if (objeto == "piedra") {
+		deshacer_posicion();
+		return;
 	}
 
 }

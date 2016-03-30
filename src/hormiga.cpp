@@ -223,21 +223,18 @@ void Hormiga::hit(Actor *who, int damage)
 	al_destroy_path(path);
 
 }
-void Hormiga::hit(int objeto, int damage)
+void Hormiga::hit(std::string objeto, int damage)
 {
-	/*
-	 * Por ahora no distingo objetos colisinables en el mapa
-	 * la colision con cualquiera de ellos tendra el mismo comprtamiento
-	 * el parametro objeto es fijo y siempre valdra 0
-	 */
-	switch (objeto)
-	{
-		case 0:
-			deshacer_posicion();
-			break;
-		default:
-			break;
+
+	if (objeto == "agua") {
+		deshacer_posicion();
+		return;
+	};
+	if (objeto == "piedra") {
+		deshacer_posicion();
+		return;
 	}
+
 
 }
 void Hormiga::crear_hormiga(ActorManager *actmgr,int tipo,Hormiguero *hormiguero_tmp,

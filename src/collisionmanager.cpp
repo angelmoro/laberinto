@@ -12,11 +12,11 @@
 #include "actor.h"
 #include "mask.h"
 #include "tilemap.h"
+#include "colisionset.h"
 
 CollisionManager::CollisionManager(Game *g)
 {
 	game = g;
-	colision_set = NULL;
 	meta_layer_activo = NULL;
 	mapa_activo = NULL;
 }
@@ -85,74 +85,101 @@ void CollisionManager::update()
 *	del mapa activo.
 */
 
-	if ((mapa_activo != NULL) && (meta_layer_activo != NULL) &&	(colision_set != NULL))
+	if ((mapa_activo != NULL) && (meta_layer_activo != NULL))
 	{
 //		printf("comenzamos a chequear colisiones en el mapa\n");
 
-		for (tmp_iter_1=game->actor_manager->get_begin_iterator();
-			 tmp_iter_1!=game->actor_manager->get_end_iterator();
-			 tmp_iter_1++)
+		for (colision_sets_iter=colision_sets.begin();
+			colision_sets_iter!=colision_sets.end();
+			colision_sets_iter++)
 		{
-			/*
-			* si el actor no es detectable saltamos al siguiente
-			*/
-			if (!((*tmp_iter_1)->get_is_detected())) continue;
 
-			/*
-			* obtenemos el tile gid del tile sobre el que esta posicionado
-			* el actor, lo hacemos a traves del meta layer del mapa activo
-			*/
-
-			tile_tmp = mapa_activo-> get_tile_gid(meta_layer_activo,
-											 	 (*tmp_iter_1)->get_x()+((*tmp_iter_1)->get_w())/2,
-												 (*tmp_iter_1)->get_y()+((*tmp_iter_1)->get_h())/2);
-
-			if (tile_tmp != -1)
+			for (tmp_iter_1=game->actor_manager->get_begin_iterator();
+				 tmp_iter_1!=game->actor_manager->get_end_iterator();
+				 tmp_iter_1++)
 			{
-				if( colision_set->count(tile_tmp) != 0)
+				/*
+				* si el actor no es detectable saltamos al siguiente
+				*/
+				if (!((*tmp_iter_1)->get_is_detected())) continue;
+
+				/*
+				* obtenemos el tile gid del tile sobre el que esta posicionado
+				* el actor, lo hacemos a traves del meta layer del mapa activo
+				*/
+
+				tile_tmp = mapa_activo-> get_tile_gid(meta_layer_activo,
+													 (*tmp_iter_1)->get_x()+((*tmp_iter_1)->get_w())/2,
+													 (*tmp_iter_1)->get_y()+((*tmp_iter_1)->get_h())/2);
+
+				if (tile_tmp != -1)
 				{
-					/*
-					 * El actor esta sobre un tile colisionable
-					 */
-					/*
-					 * TBD ahora asumimos un solo colision set, pero esto se
-					 * puede generalizar y manejar n-colision set e indicarlos
-					 * en el metodo hit para que los actores tomen acciones distintas
-					 * en funcinon de lo que colisionan en el mapa
-					 * el metodo hit esta sobrecargado y en este caso el
-					 * primer parametro no es un actor es un objeto del mapa
-					 */
-					(*tmp_iter_1)->hit(0,0);
+					if( ((*colision_sets_iter)->get_set())->count(tile_tmp) != 0)
+					{
+						/*
+						 * El actor esta sobre un tile colisionable
+						 */
+						/*
+						 * TBD ahora asumimos un solo colision set, pero esto se
+						 * puede generalizar y manejar n-colision set e indicarlos
+						 * en el metodo hit para que los actores tomen acciones distintas
+						 * en funcinon de lo que colisionan en el mapa
+						 * el metodo hit esta sobrecargado y en este caso el
+						 * primer parametro no es un actor es un objeto del mapa
+						 */
+						(*tmp_iter_1)->hit((*colision_sets_iter)->get_nombre(),0);
+					}
 				}
 			}
-
 		}
 	}
 
 }
-void CollisionManager::activar_colision_set(TileMap *mapa,
+void CollisionManager::registrar_mapa(TileMap *mapa,
 											std::string meta_tileset,
 											std::string attr_colisionable,
 											std::string meta_layer)
 {
-//	printf("activamos colision set\n");
-
-	colision_set = new std::set<int>;
-
-	mapa->crear_colision_set(meta_tileset,attr_colisionable,colision_set);
 	mapa_activo = mapa;
 	if (mapa_activo != NULL)
 	{
 		meta_layer_activo = mapa_activo->get_tilelayer(meta_layer);
 	}
+	attr_col = attr_colisionable;
+	meta_tileset_activo = meta_tileset;
 }
-void CollisionManager::desactivar_colision_set()
+void CollisionManager::desregistrar_mapa()
 {
-//	printf("desactivamos colision set\n");
-
-	if (colision_set != NULL) delete colision_set;
-	colision_set = NULL;
-	meta_layer_activo = NULL;
 	mapa_activo = NULL;
+	meta_layer_activo = NULL;
+	attr_col = "";
+	meta_tileset_activo = "";
+
+	colision_sets.clear();
+
+}
+void CollisionManager::add_colision_set(std::string nombre_colision_set)
+{
+	ColisionSet		*cs;
+
+	cs = new ColisionSet(nombre_colision_set);
+
+	mapa_activo->crear_colision_set(meta_tileset_activo,attr_col,cs->get_set());
+
+	colision_sets.push_back(cs);
+
+}
+void CollisionManager::del_colision_set(std::string nombre_colision_set)
+{
+
+	for (colision_sets_iter=colision_sets.begin();
+		colision_sets_iter!=colision_sets.end();
+		colision_sets_iter++)
+	{
+		if ((*colision_sets_iter)->get_nombre() == nombre_colision_set)
+		{
+			colision_sets.erase(colision_sets_iter);
+		}
+	}
 }
 

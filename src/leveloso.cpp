@@ -245,7 +245,7 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 	  * Creamos el mapa del nivel
 	  */
 
-	 m = new TileMap("resources/avalon.tmx");
+	 m = new TileMap("resources/avalon1.tmx");
 
 	 level_oso_tmp = new LevelOso(actmgr,levmgr,nivel,c,a,v,hv,hr,rt,bt,rtd,btd,m);
 /*
@@ -480,17 +480,29 @@ void LevelOso::set_activo(bool a)
 		// se puede definir un parametro mas que sea otro atributo del tile
 		//para diferenciar las colisiones por tipo de objeto
 
-		le->get_game()->collision_manager->activar_colision_set(mapa,
-																"meta_tiles",
-																"colisionable",
-																"meta tiles");
+		/*
+		 * Registramos el mapa
+		 */
+
+		le->get_game()->collision_manager->registrar_mapa(mapa,
+														"meta_tiles",
+														"colisionable",
+														"meta tiles");
+/*
+ * Creamos un colision set para los objetos "piedra"
+ */
+		le->get_game()->collision_manager->add_colision_set("piedra");
+/*
+ * cramos un clision set para los objetos "agua"
+ */
+
+		le->get_game()->collision_manager->add_colision_set("agua");
 	} else
 
 	{
 		/*
-		 * Si se desactiva el nivel notificamos al colison manager
-		 * que el colision set ya no es valido
+		 * Desregistramos el mapa
 		 */
-		le->get_game()->collision_manager->desactivar_colision_set();
+		le->get_game()->collision_manager->desregistrar_mapa();
 	}
 }

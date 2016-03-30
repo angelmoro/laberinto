@@ -98,7 +98,7 @@ class Actor
 		void set_collision_method(CollisionManager::collision_method_t cm);
 		CollisionManager::collision_method_t get_collision_method();
 		virtual void hit(Actor *who, int damage);
-		virtual void hit(int objeto, int damage);
+		virtual void hit(std::string objeto, int damage);
 		void set_team(int tm);
 		int get_team();
 		void set_invisible(bool i);

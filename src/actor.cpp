@@ -172,7 +172,7 @@ void Actor::hit(Actor *who, int damage)
 {
 
 }
-void Actor::hit(int objeto, int damage)
+void Actor::hit(std::string objeto, int damage)
 {
 
 }
@@ -198,11 +198,9 @@ void Actor::deshacer_posicion()
 			case SIN_MOVIMIENTO:
 				break;
 			case IZQUIERDA:
-				printf("izquierda\n");
 				x = x + 30;
 				break;
 			case DERECHA:
-				printf("derecha\n");
 				x = x - 30;
 				break;
 			default:
@@ -215,11 +213,9 @@ void Actor::deshacer_posicion()
 			case SIN_MOVIMIENTO:
 				break;
 			case ARRIBA:
-				printf("arriba\n");
 				y = y + 30;
 				break;
 			case ABAJO:
-				printf("abajo\n");
 				y = y - 30;
 				break;
 			default:

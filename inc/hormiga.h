@@ -36,7 +36,7 @@ public:
 	~Hormiga();
 	void move();
 	void hit(Actor *a, int damage);
-	void hit(int objeto, int damage);
+	void hit(std::string objeto, int damage);
 	static void crear_hormiga(ActorManager *actmgr, int tipo, Hormiguero * hormiguero_tmp,
 								int pos_x=0,int pos_y=0);
 	static int num_hormigas_verdes;
