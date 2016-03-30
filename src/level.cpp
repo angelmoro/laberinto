@@ -88,6 +88,8 @@ void Level::tick()
 void Level::set_estado(int e)
 {
 	estado = e;
+	// TBD ver si es el mejor sitio para registrar y desregistrar el mapa en el
+	// collision manager
 }
 int Level::get_estado()
 {

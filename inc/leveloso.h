@@ -15,11 +15,13 @@
 
 #include "level.h"
 
+class TileMap;
+
 class LevelOso : public Level
 {
 public:
 	LevelOso(ActorManager * b,LevelManager *l,int n,int c,int a, int v, int hv, int hr,
-			 int rt, int bt, int rtd, int btd);
+			 int rt, int bt, int rtd, int btd,TileMap *m);
 	~LevelOso();
 	 void init();
 	 void iniciar();
@@ -30,6 +32,7 @@ public:
 								 int rt, int bt, int rtd, int btd);
 	 static void crear_niveles(int niveles,ActorManager * actmgr,LevelManager * levmgr);
 	 void tick();
+	 void set_activo(bool a);
 protected:
 	 int comida,agua,veneno,hormigas_verdes,hormigas_rojas;
 	 int rana_ticks,bolsa_dinero_ticks; //contadores de trabajo
@@ -38,6 +41,7 @@ protected:
 	 int ticks_inicializado,ticks_destruido;
 	 ALLEGRO_SAMPLE 	* sonido_fin_nivel;
 	 ALLEGRO_SAMPLE 	* sonido_game_over;
+	 TileMap			*mapa;
 
 };
 

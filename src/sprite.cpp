@@ -55,7 +55,7 @@ void Sprite::draw()
 
 void Sprite::draw(ALLEGRO_BITMAP *bmp)
 {
-	al_draw_bitmap(bmp,get_y(),get_x(),0);
+	al_draw_bitmap(bmp,get_x(),get_y(),0);
 }
 int Sprite::get_w()
 {

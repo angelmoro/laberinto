@@ -33,6 +33,7 @@ public:
 
 	void do_action(ControllableObject::action_t act, int magnitude);
 	void hit(Actor *a, int damage);
+	void hit(int objeto, int damage);
 	static OsoHormiguero * crear_osohormiguero(ActorManager *actmgr,Score *score_tmp,
 												Score *score_tmp1);
 

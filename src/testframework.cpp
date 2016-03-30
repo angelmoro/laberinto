@@ -279,8 +279,6 @@ void TestFrameWork::main()
 	level_tmp = level_manager->current();
 	level_tmp->set_activo(TRUE);
 
-
-
 	 /*
 	  * Entramos al bucle principal de eventos
 	  */

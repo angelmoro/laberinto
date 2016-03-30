@@ -5,6 +5,7 @@
  *      Author: Usuario
  */
 
+#include <stdio.h>
 #include "allegro.h"
 #include "actor.h"
 #include "mask.h"
@@ -14,6 +15,10 @@ Actor::Actor()
 	agraph=NULL;
 	team = NO_TEAM;
 	is_invisible = FALSE;
+	direccion_x = SIN_MOVIMIENTO;
+	direccion_y = SIN_MOVIMIENTO;
+	x = 0;
+	y = 0;
 }
 Actor::~Actor()
 {
@@ -40,10 +45,20 @@ void Actor::move()
 
 void Actor::set_x(int pos_x)
 {
+	if (pos_x < x) direccion_x = IZQUIERDA;
+	if (pos_x > x) direccion_x = DERECHA;
+
+	ultimo_movimiento = EJE_X;
+
 	x=pos_x;
 }
 void Actor::set_y(int pos_y)
 {
+	if (pos_y < y) direccion_y = ARRIBA;
+	if (pos_y > y) direccion_y = ABAJO;
+
+	ultimo_movimiento = EJE_Y;
+
 	y=pos_y;
 }
 
@@ -104,6 +119,10 @@ int Actor::get_h()
 {
 	return agraph->get_h();
 }
+//TBD los dos siguientes metodos no los utiliza nadie
+// y creo que no valen para nada. Son equivalentes a
+// get_x() y get_y() dando vueltas a traves de actorgraphic
+/*
 int Actor::get_graph_x()
 {
 	return agraph->get_x();
@@ -112,7 +131,7 @@ int Actor::get_graph_y()
 {
 	return agraph->get_y();
 }
-
+*/
 Mask* Actor::get_graph_mask()
 {
 	return agraph->get_mask();
@@ -153,6 +172,10 @@ void Actor::hit(Actor *who, int damage)
 {
 
 }
+void Actor::hit(int objeto, int damage)
+{
+
+}
 void Actor::add(Marca * m)
 {
 
@@ -166,4 +189,42 @@ bool Actor::get_invisible()
 {
 	return is_invisible;
 }
+void Actor::deshacer_posicion()
+{
 
+	if (ultimo_movimiento == EJE_X) {
+		switch (direccion_x)
+		{
+			case SIN_MOVIMIENTO:
+				break;
+			case IZQUIERDA:
+				printf("izquierda\n");
+				x = x + 30;
+				break;
+			case DERECHA:
+				printf("derecha\n");
+				x = x - 30;
+				break;
+			default:
+				break;
+		}
+	}
+	if (ultimo_movimiento == EJE_Y) {
+		switch (direccion_y)
+		{
+			case SIN_MOVIMIENTO:
+				break;
+			case ARRIBA:
+				printf("arriba\n");
+				y = y + 30;
+				break;
+			case ABAJO:
+				printf("abajo\n");
+				y = y - 30;
+				break;
+			default:
+				break;
+		}
+	}
+
+}

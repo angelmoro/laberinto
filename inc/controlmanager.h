@@ -35,6 +35,8 @@ class ControlManager
 		vector<Peripheral*> peripherals;
 		vector<Peripheral*>::iterator peripherals_iter;
 		int old_state[MAXPERIPHERALS];
+
+
 };
 
 

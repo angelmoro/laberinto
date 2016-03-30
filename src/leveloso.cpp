@@ -27,7 +27,7 @@
 
 LevelOso::LevelOso(ActorManager * b,LevelManager * l,
 		           int n, int c, int a, int v, int hv,
-				   int hr, int rt, int bt, int rtd, int btd):Level(b,l,n)
+				   int hr, int rt, int bt, int rtd, int btd, TileMap *m):Level(b,l,n)
 {
 	ALLEGRO_PATH   *path;
 
@@ -42,6 +42,7 @@ LevelOso::LevelOso(ActorManager * b,LevelManager * l,
 	bolsa_dinero_ticks_fijados = bt;
 	rana_mov_to_dead = rtd;
 	bolsa_dinero_mov_to_dead = btd;
+	mapa = m;
 
 
 
@@ -240,7 +241,13 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 //	 al_set_path_filename(path, "desierto1.png");
 //	 al_set_path_filename(path, "score-fondo.png");
 
-	 level_oso_tmp = new LevelOso(actmgr,levmgr,nivel,c,a,v,hv,hr,rt,bt,rtd,btd);
+	 /*
+	  * Creamos el mapa del nivel
+	  */
+
+	 m = new TileMap("resources/avalon.tmx");
+
+	 level_oso_tmp = new LevelOso(actmgr,levmgr,nivel,c,a,v,hv,hr,rt,bt,rtd,btd,m);
 /*
 	 bmp = al_load_bitmap(al_path_cstr(path, '/'));
 	 if(bmp == NULL)
@@ -251,11 +258,7 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 		exit(-1);
 	 }
 */
-	 /*
-	  * Creamos el mapa del nivel
-	  */
 
-	 m = new TileMap("resources/avalon.tmx");
 
 	 lg=new LevelGraphic(level_oso_tmp, m);
 
@@ -413,6 +416,7 @@ void LevelOso::tick()
 				 rana_ticks = rana_ticks_fijados;
 				 Rana::crear_rana(am, rana_mov_to_dead);
 			}
+
 	/*
 	 * Creamos una bolsa de dinero cada 42,85 segundos (1000 ticks/ (70 ticks/seg))
 	*/
@@ -421,6 +425,7 @@ void LevelOso::tick()
 				 bolsa_dinero_ticks = bolsa_dinero_ticks_fijados;
 				 BolsaDinero::crear_bolsa_dinero(am,bolsa_dinero_mov_to_dead);
 			}
+
 	/*
 	 * Si todas las hormigas verdes 0 hormigas rojas muertas, cambio de nivel
 	 */
@@ -459,5 +464,33 @@ void LevelOso::tick()
 			break;
 		default:
 			break;
+	}
+}
+void LevelOso::set_activo(bool a)
+{
+	activo = a;
+
+	if (activo == TRUE)
+	{
+		/*
+		 * Si se activa el nivel notificamos al colision manager
+		 * el colision set de mapa del nivel
+		 */
+		// TBD "meta tiles","colisionable"y"meta tiles" deberian de ser cadenas parametrizables.
+		// se puede definir un parametro mas que sea otro atributo del tile
+		//para diferenciar las colisiones por tipo de objeto
+
+		le->get_game()->collision_manager->activar_colision_set(mapa,
+																"meta_tiles",
+																"colisionable",
+																"meta tiles");
+	} else
+
+	{
+		/*
+		 * Si se desactiva el nivel notificamos al colison manager
+		 * que el colision set ya no es valido
+		 */
+		le->get_game()->collision_manager->desactivar_colision_set();
 	}
 }

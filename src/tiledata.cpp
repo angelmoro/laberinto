@@ -163,8 +163,11 @@ int TileData::get_tile_gid(int pos)
 
 	int i;
 
-	for(i=0,vtiles_iter=vtiles.begin();i!=pos;vtiles_iter++) continue;
+	for(i=0,vtiles_iter=vtiles.begin();vtiles_iter!=vtiles.end();vtiles_iter++,i++)
+	{
+		if (i == pos) return (*vtiles_iter);
+	}
 
-	return (*vtiles_iter);
+	return -1;
 
 }

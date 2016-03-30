@@ -3,6 +3,11 @@
 	[
 		{
 			"jlevel" : 6,
+			"jnombre" : "QQ",
+			"jpuntuacion" : 460
+		},
+		{
+			"jlevel" : 6,
 			"jnombre" : "GELU",
 			"jpuntuacion" : 450
 		},
@@ -13,18 +18,18 @@
 		},
 		{
 			"jlevel" : 6,
-			"jnombre" : "QWE",
-			"jpuntuacion" : 250
+			"jnombre" : "QWQWW",
+			"jpuntuacion" : 340
 		},
 		{
-			"jlevel" : 5,
-			"jnombre" : "KLKKKKKKK",
-			"jpuntuacion" : 240
+			"jlevel" : 6,
+			"jnombre" : "AAA",
+			"jpuntuacion" : 320
 		},
 		{
-			"jlevel" : 5,
-			"jnombre" : "DDDD",
-			"jpuntuacion" : 210
+			"jlevel" : 4,
+			"jnombre" : "",
+			"jpuntuacion" : 160
 		}
 	]
 }

@@ -31,6 +31,8 @@ class LevelManager
 
 		list<Level*>::iterator get_begin_iterator();
 		list<Level*>::iterator get_end_iterator();
+		Game * get_game();
+
 
 	protected:
 		Game *game;

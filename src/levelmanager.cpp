@@ -90,7 +90,10 @@ void LevelManager::tick()
 		}
 	}
 }
-
+Game * LevelManager::get_game()
+{
+	return game;
+}
 
 
 

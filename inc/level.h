@@ -44,7 +44,7 @@ public:
 	virtual void tick();
 	int get_level();
 	bool nivel_activo();
-	void set_activo(bool a);
+	virtual void set_activo(bool a);
 	void set_estado(int e);
 	int get_estado();
 	bool last_level();

@@ -35,7 +35,22 @@
 #define TEAM_LEVEL				11
 #define TEAM_RECORDS			12
 
+/*
+ * Direccion del actor
+ */
 
+#define SIN_MOVIMIENTO	0
+#define IZQUIERDA		1
+#define DERECHA			2
+#define ARRIBA			3
+#define ABAJO			4
+
+/*
+ * ultimo movimiento registrado
+ */
+
+#define EJE_X	0
+#define EJE_Y	1
 
 class ActorGraphic;
 
@@ -67,9 +82,12 @@ class Actor
 		void set_actor_graphic(ActorGraphic *ag);
 		int get_x();
 		int get_y();
+		//TBD los dos siguientes metodos no los utiliza nadie
+		// y creo que no valen para nada. Son equivalentes a
+		// get_x() y get_y() dando vueltas a traves de actorgraphic
 
-		int get_graph_x();
-		int get_graph_y();
+		//int get_graph_x();
+		//int get_graph_y();
 
 
 		Mask *get_graph_mask();
@@ -80,13 +98,17 @@ class Actor
 		void set_collision_method(CollisionManager::collision_method_t cm);
 		CollisionManager::collision_method_t get_collision_method();
 		virtual void hit(Actor *who, int damage);
+		virtual void hit(int objeto, int damage);
 		void set_team(int tm);
 		int get_team();
 		void set_invisible(bool i);
 		bool get_invisible();
+		void deshacer_posicion();
 
 	protected:
 		int x, y;
+		int direccion_x,direccion_y;
+		int ultimo_movimiento;
 		ActorGraphic *agraph;
 		char * name;
 		int power;

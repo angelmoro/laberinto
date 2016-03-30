@@ -80,16 +80,16 @@ void Hormiga::Forage(void)
 
  rowMove=Game::rnd(0,2)-1;
  colMove=Game::rnd(0,2)-1;
- newRow=y+rowMove*size;
- newCol=x+colMove*size;
+ newRow=get_y()+rowMove*size;
+ newCol=get_x()+colMove*size;
 
  if (newRow<0) newRow = 0;
  if (newCol<0) newCol = 0;
  if (newRow>Game::gfx_h-get_h()) newRow = Game::gfx_h-get_h();
  if (newCol>Game::gfx_w-get_w()) newCol = Game::gfx_w-get_w();
 
- y=newRow;
- x=newCol;
+ set_y(newRow);
+ set_x(newCol);
 
 }
 void Hormiga::GoHome(void)
@@ -99,30 +99,30 @@ void Hormiga::GoHome(void)
  int newRow;
  int newCol;
 
- if (x<Hm->get_x())
+ if (get_x()<Hm->get_x())
 	 colMove=1;
- else if (x>Hm->get_x())
+ else if (get_x()>Hm->get_x())
 	 colMove=-1;
  else
 	 colMove=0;
 
- if (y<Hm->get_y())
+ if (get_y()<Hm->get_y())
 	 rowMove=1;
- else if (y>Hm->get_y())
+ else if (get_y()>Hm->get_y())
 	 rowMove=-1;
  else
 	 rowMove=0;
 
- newRow=y+rowMove*size;
- newCol=x+colMove*size;
+ newRow=get_y()+rowMove*size;
+ newCol=get_x()+colMove*size;
 
  if (newRow<0) newRow = 0;
  if (newCol<0) newCol = 0;
  if (newRow>Game::gfx_h-get_h()) newRow = Game::gfx_h-get_h();
  if (newCol>Game::gfx_w-get_w()) newCol = Game::gfx_w-get_w();
 
- y = newRow;
- x = newCol;
+ set_y(newRow);
+ set_x(newCol);
 
 }
 
@@ -138,16 +138,16 @@ void Hormiga::Thirsty(void)
 
  rowMove=Game::rnd(0,2)-1;
  colMove=Game::rnd(0,2)-1;
- newRow=y+rowMove*size;
- newCol=x+colMove*size;
+ newRow=get_y()+rowMove*size;
+ newCol=get_x()+colMove*size;
 
  if (newRow<0) newRow = 0;
  if (newCol<0) newCol = 0;
  if (newRow>Game::gfx_h-get_h()) newRow = Game::gfx_h-get_h();
  if (newCol>Game::gfx_w-get_w()) newCol = Game::gfx_w-get_w();
 
- y=newRow;
- x=newCol;
+ set_y(newRow);
+ set_x(newCol);
 }
 
 
@@ -197,7 +197,7 @@ void Hormiga::hit(Actor *who, int damage)
 			   */
 
 			 	 state=kThirsty;
-				 Hormiga::crear_hormiga(am,tipo,Hm);
+				 Hormiga::crear_hormiga(am,tipo,Hm,Hm->get_x(),Hm->get_y());
     		}
 
 			break;
@@ -211,8 +211,8 @@ void Hormiga::hit(Actor *who, int damage)
 /*
  * La envio al hormiguero
  */
-			x = Hm->get_x();
-			y = Hm->get_y();
+			set_x(Hm->get_x());
+			set_y(Hm->get_y());
 			break;
 		case TEAM_BOLSA_DINERO:
 			break;
@@ -223,7 +223,23 @@ void Hormiga::hit(Actor *who, int damage)
 	al_destroy_path(path);
 
 }
+void Hormiga::hit(int objeto, int damage)
+{
+	/*
+	 * Por ahora no distingo objetos colisinables en el mapa
+	 * la colision con cualquiera de ellos tendra el mismo comprtamiento
+	 * el parametro objeto es fijo y siempre valdra 0
+	 */
+	switch (objeto)
+	{
+		case 0:
+			deshacer_posicion();
+			break;
+		default:
+			break;
+	}
 
+}
 void Hormiga::crear_hormiga(ActorManager *actmgr,int tipo,Hormiguero *hormiguero_tmp,
 							int pos_x,int pos_y)
 {

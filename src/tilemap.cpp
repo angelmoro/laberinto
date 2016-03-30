@@ -336,17 +336,23 @@ int TileMap::get_tile_gid(TileLayer * layer,int pixel_x,int pixel_y)
 {
 	int tile_x,tile_y,pos;
 
-	tile_x = pixel_x / width;
-	tile_y = pixel_y / height;
-
+//	printf("posicion en pixels x = %d y = %d\n",pixel_x,pixel_y);
+	tile_x = pixel_x / tilewidth;
+	tile_y = pixel_y / tileheight;
+//	printf("posicion en tiles x = %d y = %d\n",tile_x,tile_y);
 	pos = width * tile_y + tile_x;//posicion lineal en el vector de almacenamiento
+//	printf("posicion en tiles lineal %d\n",pos);
 
 	return layer->get_tile_gid(pos);
 }
 void TileMap::crear_colision_set(std::string meta_tileset,std::string atribute,std::set<int> * colision_set)
 {
+	int gid;
+
 	std::list<TileProperty*>::iterator properties_iter;
 	std::list<Tile*>::iterator tiles_iter;
+
+//	printf("meta tileset %s\n",meta_tileset.c_str());
 	/*
 	 * Iterar para encontrar el meta tileset
 	 */
@@ -356,6 +362,7 @@ void TileMap::crear_colision_set(std::string meta_tileset,std::string atribute,s
 	{
 		if ((*tilesets_iter)->get_name() == meta_tileset) break;
 	}
+//	printf("tileset name %s\n",(*tilesets_iter)->get_name().c_str());
 	/*
 	 * Iterar por todos los tile del tileset
 	 */
@@ -363,6 +370,7 @@ void TileMap::crear_colision_set(std::string meta_tileset,std::string atribute,s
 		 tiles_iter!=(*tilesets_iter)->get_tiles_end_iterator();
 		 tiles_iter++)
 	{
+//		printf("tile id %d\n",(*tiles_iter)->get_id());
 		/*
 		 * Iterar por todas las propiedades del tile
 		 */
@@ -374,15 +382,19 @@ void TileMap::crear_colision_set(std::string meta_tileset,std::string atribute,s
 			if (((*properties_iter)->get_name() == atribute)&&
 					((*properties_iter)->get_value() == "true"))
 			{
+//				printf("attr name %s, value %s\n",(*properties_iter)->get_name().c_str(),(*properties_iter)->get_value().c_str());
 				/*
 				 * Al id del tile le sumo el firstgid del tile set para
 				 * obtener el gid del tile y este es el que insertamos en el set
 				 * de colision
 				 */
-				colision_set->insert((*tilesets_iter)->get_firstgid()+(*tiles_iter)->get_id());
+				gid = (*tilesets_iter)->get_firstgid()+(*tiles_iter)->get_id();
+				colision_set->insert(gid);
+	//			printf("gid = %d\n",gid);
 			}
 		}
 	}
+
 }
 TileLayer * TileMap::get_tilelayer(std::string name)
 {

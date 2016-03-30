@@ -9,9 +9,14 @@
 #define INC_COLLISIONMANAGER_H_
 
 #include <list>
+#include <set>
+#include <string>
 #include "actormanager.h"
 #include "game.h"
 #include "mask.h"
+
+class TileMap;
+class TileLayer;
 
 class CollisionManager
 {
@@ -23,11 +28,18 @@ class CollisionManager
 			PP_COLLISION
 		}collision_method_t;
 		void update();
+		void activar_colision_set(TileMap *mapa,
+								   std::string meta_tileset,
+								   std::string attr_colisionable,
+								   std::string meta_layer);
+		void desactivar_colision_set();
 	protected:
 		Game *game;
 	private:
-		list<Actor*>::iterator tmp_iter_1;
-		list<Actor*>::iterator tmp_iter_2;
+
+		std::set<int> 			* colision_set;
+		TileLayer 				* meta_layer_activo;
+		TileMap 				* mapa_activo;
 };
 
 

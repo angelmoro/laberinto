@@ -17,7 +17,7 @@ MapaDeBits::MapaDeBits(Actor *aowner, ALLEGRO_BITMAP *b) : ActorGraphic(aowner)
 }
 void MapaDeBits::draw()
 {
-	al_draw_bitmap(bmp,get_y(),get_x(),0);
+	al_draw_bitmap(bmp,get_x(),get_y(),0);
 }
 int MapaDeBits::get_w()
 {

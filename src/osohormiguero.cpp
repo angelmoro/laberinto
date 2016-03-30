@@ -77,27 +77,33 @@ OsoHormiguero::~OsoHormiguero()
 void OsoHormiguero::do_action(ControllableObject::action_t act, int magnitude)
 {
 
+
 	switch (act)
 	{
 		case DOWN:
-			x+=size;
+
+	//		y+=size;
+			set_y(get_y()+size);
 			break;
 		case UP:
-			x-=size;
+//			y-=size;
+			set_y(get_y()-size);
 			break;
 		case LEFT:
-			y-=size;
+//			x-=size;
+			set_x(get_x()-size);
 			break;
 		case RIGHT:
-			y+=size;
+//			x+=size;
+			set_x(get_x()+size);
 			break;
 	}
 
-	if (x<0) x=0;
-	if (x>Game::gfx_w-get_w()) x=Game::gfx_w-get_w();
+	if (get_x()<0) set_x(0);
+	if (get_x()>Game::gfx_w-get_w()) set_x(Game::gfx_w-get_w());
 
-	if (y<0) y=0;
-	if (y>Game::gfx_h-get_h()) y=Game::gfx_h-get_h();
+	if (get_y()<0) set_y(0);
+	if (get_y()>Game::gfx_h-get_h()) set_y(Game::gfx_h-get_h());
 }
 void OsoHormiguero::hit(Actor *who, int damage)
 {
@@ -111,8 +117,8 @@ void OsoHormiguero::hit(Actor *who, int damage)
 		case TEAM_HORMIGAS_ROJAS:
 			al_play_sample(sonido_perdida_vida, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			sc_vidas->resta(1);
-			x=Game::gfx_h-get_h();
-			y=0;
+			set_x(Game::gfx_h-get_h());
+			set_y(0);
 			break;
 		case TEAM_HORMIGAS_VERDES:
 			al_play_sample(sonido_comer_hormiga, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
@@ -127,16 +133,16 @@ void OsoHormiguero::hit(Actor *who, int damage)
 		case TEAM_VENENO:
 			al_play_sample(sonido_perdida_vida, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			sc_vidas->resta(1);
-			x=Game::gfx_h-get_h();
-			y=0;
+			set_x(Game::gfx_h-get_h());
+			set_y(0);
 			break;
 		case TEAM_HORMIGUERO:
 			set_x(Game::rnd(0,Game::gfx_w-get_w()));
 			set_y(Game::rnd(0,Game::gfx_h-get_h()));
 			al_play_sample(sonido_perdida_vida, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			sc_vidas->resta(1);
-			x=Game::gfx_h-get_h();
-			y=0;
+			set_x(Game::gfx_h-get_h());
+			set_y(0);
 			break;
 		case TEAM_RANA:
 			al_play_sample(sonido_comer_hormiga, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
@@ -225,6 +231,24 @@ void OsoHormiguero::hit(Actor *who, int damage)
 			activo = FALSE;
 		}
 	}
+}
+
+void OsoHormiguero::hit(int objeto, int damage)
+{
+/*
+ * Por ahora no distingo objetos colisinables en el mapa
+ * la colision con cualquiera de ellos tendra el mismo comprtamiento
+ * el parametro objeto es fijo y siempre valdra 0
+ */
+	switch (objeto)
+	{
+		case 0:
+//			deshacer_posicion();
+			break;
+		default:
+			break;
+	}
+
 }
 
 OsoHormiguero* OsoHormiguero::crear_osohormiguero(ActorManager *actmgr,Score * score_tmp,
