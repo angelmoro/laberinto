@@ -234,7 +234,7 @@ void Hormiga::hit(std::string objeto, int damage)
 		return;
 	};
 	if (objeto == "piedra") {
-		deshacer_posicion();
+//		deshacer_posicion();
 		return;
 	}
 

@@ -228,6 +228,8 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 	  ALLEGRO_PATH   	*path;
 	  ALLEGRO_FONT 	 	*font;
 	  TileMap			*m;
+	  string			mapa;
+	  char 				buffer [256];
 
 	 /*
 	 * para crear path relativos y poder distribuir el programa y ejecutarlo
@@ -238,14 +240,15 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 	 al_remove_path_component(path,-1);
 	 al_append_path_component(path, "resources");
 
-//	 al_set_path_filename(path, "desierto1.png");
-//	 al_set_path_filename(path, "score-fondo.png");
 
 	 /*
 	  * Creamos el mapa del nivel
 	  */
 
-	 m = new TileMap("resources/avalon1.tmx");
+	 sprintf (buffer, "resources/mapa%d.tmx",nivel);
+	 mapa = buffer;
+
+	 m = new TileMap(mapa);
 
 	 level_oso_tmp = new LevelOso(actmgr,levmgr,nivel,c,a,v,hv,hr,rt,bt,rtd,btd,m);
 /*

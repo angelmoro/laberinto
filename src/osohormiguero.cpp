@@ -117,8 +117,8 @@ void OsoHormiguero::hit(Actor *who, int damage)
 		case TEAM_HORMIGAS_ROJAS:
 			al_play_sample(sonido_perdida_vida, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			sc_vidas->resta(1);
-			set_x(Game::gfx_h-get_h());
-			set_y(0);
+			set_x(0);
+			set_y(Game::gfx_w-get_w());
 			break;
 		case TEAM_HORMIGAS_VERDES:
 			al_play_sample(sonido_comer_hormiga, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
@@ -133,16 +133,16 @@ void OsoHormiguero::hit(Actor *who, int damage)
 		case TEAM_VENENO:
 			al_play_sample(sonido_perdida_vida, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			sc_vidas->resta(1);
-			set_x(Game::gfx_h-get_h());
-			set_y(0);
+			set_x(0);
+			set_y(Game::gfx_w-get_w());
 			break;
 		case TEAM_HORMIGUERO:
 			set_x(Game::rnd(0,Game::gfx_w-get_w()));
 			set_y(Game::rnd(0,Game::gfx_h-get_h()));
 			al_play_sample(sonido_perdida_vida, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 			sc_vidas->resta(1);
-			set_x(Game::gfx_h-get_h());
-			set_y(0);
+			set_x(0);
+			set_y(Game::gfx_w-get_w());
 			break;
 		case TEAM_RANA:
 			al_play_sample(sonido_comer_hormiga, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
@@ -240,7 +240,7 @@ void OsoHormiguero::hit(std::string objeto, int damage)
 	 * del mapa
 	 */
 	if (objeto == "agua") {
-		deshacer_posicion();
+//		deshacer_posicion();
 	} else
 	if (objeto == "piedra") {
 		deshacer_posicion();
