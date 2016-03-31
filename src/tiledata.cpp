@@ -8,6 +8,8 @@
 #include "tiledata.h"
 #include <vector>
 
+//#define VERBOSE 1
+
 TileData::TileData(tinyxml2::XMLElement * t)
 {
 	/*
@@ -20,7 +22,9 @@ TileData::TileData(tinyxml2::XMLElement * t)
 	data = "";
 
 	root_tiledata = t;
+#ifdef VERBOSE
 	printf("creado tiledata\n");
+#endif
 	parse();
 }
 TileData::~TileData()
@@ -74,18 +78,26 @@ void TileData::parse()
 	szAttributeText = NULL;
 	szAttributeText = root_tiledata->Attribute("encoding");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("encoding no encontrado\n");
+#endif
 	}else {
 		encoding = szAttributeText;
+#ifdef VERBOSE
 		printf("encoding %s\n",encoding.c_str());
+#endif
 	}
 	szAttributeText = NULL;
 	szAttributeText = root_tiledata->Attribute("compression");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("compression no encontrado\n");
+#endif
 	}else {
 		compression = szAttributeText;
+#ifdef VERBOSE
 		printf("compression %s\n",compression.c_str());
+#endif
 	}
 
 	/*
@@ -121,9 +133,9 @@ void TileData::parse()
 		vtiles.push_back(atoi(string_tmp.c_str()));//el ultimo elemento no esta seguido de ","
 
 	} else if ((encoding.compare("") == 0)&&((compression.compare("") == 0))){
-
+#ifdef VERBOSE
 		printf("no definido encoding ni compression, parseando tags <tile>\n");
-
+#endif
 		/*
 		 * Cargamos la lista de tile, no creamos objetos tile, directamente lo almacenamos
 		 * en el vector de data
@@ -134,28 +146,28 @@ void TileData::parse()
 		{
 			eResult = pListElement->QueryIntAttribute("gid", &gid_tmp);
 			if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 				printf("Error cargando gid: %i\n", eResult);
+#endif
 			}else{
-//				printf("gid %d\n",gid_tmp);
+#ifdef VERBOSE
+				printf("gid %d\n",gid_tmp);
+#endif
 			}
 			vtiles.push_back(gid_tmp);
 			pListElement = pListElement->NextSiblingElement("tile");
 		}
 
 	} else {
-
+#ifdef VERBOSE
 		printf("encoding desconocido\n");
+#endif
 
 	}
-
+#ifdef VERBOSE
 	printf("data %s\n",data.c_str());
-/*
-	for (vtiles_iter= vtiles.begin(); vtiles_iter != vtiles.end(); vtiles_iter++)
-	{
-	  printf("tile %d\n",*vtiles_iter);
-	}
+#endif
 
-*/
 
 }
 int TileData::get_tile_gid(int pos)

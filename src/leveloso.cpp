@@ -476,9 +476,7 @@ void LevelOso::set_activo(bool a)
 		 * Si se activa el nivel notificamos al colision manager
 		 * el colision set de mapa del nivel
 		 */
-		// TBD "meta tiles","colisionable"y"meta tiles" deberian de ser cadenas parametrizables.
-		// se puede definir un parametro mas que sea otro atributo del tile
-		//para diferenciar las colisiones por tipo de objeto
+		// TBD "meta_tiles","colisionable","meta tiles" y "objeto" deberian de ser cadenas parametrizables.
 
 		/*
 		 * Registramos el mapa
@@ -487,6 +485,7 @@ void LevelOso::set_activo(bool a)
 		le->get_game()->collision_manager->registrar_mapa(mapa,
 														"meta_tiles",
 														"colisionable",
+														"objeto",
 														"meta tiles");
 /*
  * Creamos un colision set para los objetos "piedra"
@@ -498,7 +497,6 @@ void LevelOso::set_activo(bool a)
 
 		le->get_game()->collision_manager->add_colision_set("agua");
 	} else
-
 	{
 		/*
 		 * Desregistramos el mapa

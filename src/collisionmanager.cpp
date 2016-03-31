@@ -131,6 +131,7 @@ void CollisionManager::update()
 void CollisionManager::registrar_mapa(TileMap *mapa,
 											std::string meta_tileset,
 											std::string attr_colisionable,
+											std::string attr_objeto,
 											std::string meta_layer)
 {
 	mapa_activo = mapa;
@@ -139,6 +140,7 @@ void CollisionManager::registrar_mapa(TileMap *mapa,
 		meta_layer_activo = mapa_activo->get_tilelayer(meta_layer);
 	}
 	attr_col = attr_colisionable;
+	attr_obj = attr_objeto;
 	meta_tileset_activo = meta_tileset;
 }
 void CollisionManager::desregistrar_mapa()
@@ -146,6 +148,7 @@ void CollisionManager::desregistrar_mapa()
 	mapa_activo = NULL;
 	meta_layer_activo = NULL;
 	attr_col = "";
+	attr_obj = "";
 	meta_tileset_activo = "";
 
 	colision_sets.clear();
@@ -157,7 +160,7 @@ void CollisionManager::add_colision_set(std::string nombre_colision_set)
 
 	cs = new ColisionSet(nombre_colision_set);
 
-	mapa_activo->crear_colision_set(nombre_colision_set,meta_tileset_activo,attr_col,cs->get_set());
+	mapa_activo->crear_colision_set(nombre_colision_set,meta_tileset_activo,attr_col,attr_obj,cs->get_set());
 
 	colision_sets.push_back(cs);
 

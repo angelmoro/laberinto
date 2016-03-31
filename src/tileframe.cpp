@@ -8,6 +8,8 @@
 
 #include "tileframe.h"
 
+//#define VERBOSE 1
+
 TileFrame::TileFrame(tinyxml2::XMLElement * t)
 {
 	/*
@@ -17,7 +19,9 @@ TileFrame::TileFrame(tinyxml2::XMLElement * t)
 	duration = 0; // How long (in milliseconds) this frame should be displayed before advancing to the next frame.
 
 	root_tileframe = t;
+#ifdef VERBOSE
 	printf("creado tileframe\n");
+#endif
 	parse();
 }
 TileFrame::~TileFrame()
@@ -34,14 +38,22 @@ void TileFrame::parse()
 	 */
 	eResult = root_tileframe->QueryIntAttribute("tileid", &tileid);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando tileid: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("tileid %d\n",tileid);
+#endif
 	}
 	eResult = root_tileframe->QueryIntAttribute("duration", &duration);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando duration: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("duration %d\n",duration);
+#endif
 	}
 }

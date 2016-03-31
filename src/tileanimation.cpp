@@ -8,10 +8,14 @@
 #include "tileanimation.h"
 #include "tileframe.h"
 
+//#define VERBOSE 1
+
 TileAnimation::TileAnimation(tinyxml2::XMLElement * t)
 {
 	root_tileanimation = t;
+#ifdef VERBOSE
 	printf("creado tileanimation\n");
+#endif
 	parse();
 }
 TileAnimation::~TileAnimation()
@@ -28,7 +32,9 @@ void TileAnimation::parse()
 	 */
 
 	pListElement = root_tileanimation->FirstChildElement("frame");
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento frame\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		tf = new TileFrame(pListElement);

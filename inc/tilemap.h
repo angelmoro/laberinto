@@ -34,7 +34,8 @@ public:
 	int get_tile_gid(TileLayer * layer,int pixel_x,int pixel_y);
 	void crear_colision_set(std::string nombre_colision_set,
 							std::string meta_tileset,
-							std::string atribute,
+							std::string atribute_colisionable,
+							std::string atribute_objeto,
 							std::set<int> * colision_set);
 	TileLayer * get_tilelayer(std::string name);
 

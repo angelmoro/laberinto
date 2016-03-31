@@ -14,7 +14,7 @@
 #include "tileproperty.h"
 #include "tile.h"
 
-
+//#define VERBOSE 1
 
 TileMap::TileMap(std::string file)
 {
@@ -161,97 +161,145 @@ void TileMap::parse()
 	szAttributeText = NULL;
 	szAttributeText = root_tilemap->Attribute("version");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("version no encontrado\n");
+#endif
 	}else {
 		version = szAttributeText;
+#ifdef VERBOSE
 		printf("version %s\n",version.c_str());
+#endif
 	}
 
 	szAttributeText = NULL;
 	szAttributeText = root_tilemap->Attribute("orientation");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("orintation no encontrado\n");
+#endif
 	}else{
 		orientation = szAttributeText;
+#ifdef VERBOSE
 		printf("orientation %s\n",orientation.c_str());
+#endif
 	}
 
 	szAttributeText = NULL;
 	szAttributeText = root_tilemap->Attribute("renderorder");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("renderorder no encontrado\n");
+#endif
 	}else{
 		renderorder = szAttributeText;
+#ifdef VERBOSE
 		printf("renderorder %s\n",renderorder.c_str());
+#endif
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("width", &width);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando width: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("width %d\n",width);
+#endif
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("height", &height);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando height: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("height %d\n",height);
+#endif
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("tilewidth", &tilewidth);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando tilewidth: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("tilewidth %d\n",tilewidth);
+#endif
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("tileheight", &tileheight);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando tileheight: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("tileheight %d\n",tileheight);
+#endif
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("hexsidelength", &hexsidelength);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando hexsidelength: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("hexsidelength %d\n",hexsidelength);
+#endif
 	}
 
 	szAttributeText = NULL;
 	szAttributeText = root_tilemap->Attribute("staggeraxis");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("staggeraxis no encontrado\n");
+#endif
 	}else{
 		staggeraxis = szAttributeText;
+#ifdef VERBOSE
 		printf("staggeraxis %s\n",staggeraxis.c_str());
+#endif
 	}
 
 	szAttributeText = NULL;
 	szAttributeText = root_tilemap->Attribute("staggerindex");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("staggerindex no encontrado\n");
+#endif
 	}else{
 		staggerindex = szAttributeText;
+#ifdef VERBOSE
 		printf("staggerindex %s\n",staggerindex.c_str());
+#endif
 	}
 
 	szAttributeText = NULL;
 	szAttributeText = root_tilemap->Attribute("backgroundcolor");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("backgroundcolor no encontrado\n");
+#endif
 	}else{
 		backgroundcolor = szAttributeText;
+#ifdef VERBOSE
 		printf("backgroundcolor %s\n",backgroundcolor.c_str());
+#endif
 	}
 
 	eResult = root_tilemap->QueryIntAttribute("nextobjectid", &nextobjectid);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando nextobjectid: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("nextobjectid %d\n",nextobjectid);
+#endif
 	}
 	/*
 	 * Cargamos la lista de tilesets
@@ -279,7 +327,9 @@ void TileMap::parse()
 	 * Cargamos la lista de objectgroups
 	 */
 	pListElement = root_tilemap->FirstChildElement("objectgroup");
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento objectgroup\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		to = new TileObjectGroup(pListElement);
@@ -290,7 +340,9 @@ void TileMap::parse()
 	 * Cargamos la lista de imagelayers
 	 */
 	pListElement = root_tilemap->FirstChildElement("imagelayer");
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento imagelayer\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		ti = new TileImageLayer(pListElement);
@@ -305,20 +357,19 @@ void TileMap::parse()
 		pListElement = pElement_tmp->FirstChildElement("property");
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento properties\n");
+#endif
 	}
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento property\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		tp = new TileProperty(pListElement);
 		properties.push_back(tp);
 		pListElement = pListElement->NextSiblingElement("property");
 	}
-
-//	XMLElement * pElement = pRoot->FirstChildElement("tileset");
-//	if (pElement == NULL) {printf("Error: parsing element\n");exit(-1);}
-
-
 
 }
 
@@ -336,23 +387,23 @@ int TileMap::get_tile_gid(TileLayer * layer,int pixel_x,int pixel_y)
 {
 	int tile_x,tile_y,pos;
 
-//	printf("posicion en pixels x = %d y = %d\n",pixel_x,pixel_y);
 	tile_x = pixel_x / tilewidth;
 	tile_y = pixel_y / tileheight;
-//	printf("posicion en tiles x = %d y = %d\n",tile_x,tile_y);
+
 	pos = width * tile_y + tile_x;//posicion lineal en el vector de almacenamiento
-//	printf("posicion en tiles lineal %d\n",pos);
 
 	return layer->get_tile_gid(pos);
 }
 void TileMap::crear_colision_set(std::string nombre_colision_set,
 								std::string meta_tileset,
-								std::string atribute,
+								std::string atribute_colisionable,
+								std::string atribute_objeto,
 								std::set<int> * colision_set)
 {
 	int gid;
 	bool attr_colisionable;
 	bool attr_objeto;
+	bool tileset;
 
 	std::list<TileProperty*>::iterator properties_iter;
 	std::list<Tile*>::iterator tiles_iter;
@@ -361,13 +412,19 @@ void TileMap::crear_colision_set(std::string nombre_colision_set,
 	/*
 	 * Iterar para encontrar el meta tileset
 	 */
+	tileset = false;
+
 	for (tilesets_iter=tilesets.begin();
 		 tilesets_iter!=tilesets.end();
 		 tilesets_iter++)
 	{
-		if ((*tilesets_iter)->get_name() == meta_tileset) break;
+		if ((*tilesets_iter)->get_name() == meta_tileset) {tileset = true;break;}
 	}
-//	printf("tileset name %s\n",(*tilesets_iter)->get_name().c_str());
+	if (!tileset)
+	{
+		printf("meta tileset no encontrado\n");
+		exit(-1);
+	}
 	/*
 	 * Iterar por todos los tile del tileset
 	 */
@@ -375,7 +432,7 @@ void TileMap::crear_colision_set(std::string nombre_colision_set,
 		 tiles_iter!=(*tilesets_iter)->get_tiles_end_iterator();
 		 tiles_iter++)
 	{
-//		printf("tile id %d\n",(*tiles_iter)->get_id());
+
 		/*
 		 * Iterar por todas las propiedades del tile
 		 */
@@ -386,20 +443,19 @@ void TileMap::crear_colision_set(std::string nombre_colision_set,
 			 properties_iter!=(*tiles_iter)->get_properties_end_iterator();
 			 properties_iter++)
 		{
-			if (((*properties_iter)->get_name() == atribute)&&
+
+			if (((*properties_iter)->get_name() == atribute_colisionable)&&
 					((*properties_iter)->get_value() == "true"))
 			{
 				attr_colisionable = true;
 			}
 
-		// TBD "objeto" se puede parametrizar
-			if (((*properties_iter)->get_name() == "objeto")&&
+			if (((*properties_iter)->get_name() == atribute_objeto)&&
 					((*properties_iter)->get_value() == nombre_colision_set))
 			{
 				attr_objeto = true;
 
 			}
-
 		}
 
 		/*
@@ -418,7 +474,6 @@ void TileMap::crear_colision_set(std::string nombre_colision_set,
 			 */
 			gid = (*tilesets_iter)->get_firstgid()+(*tiles_iter)->get_id();
 			colision_set->insert(gid);
-//			printf("gid = %d\n",gid);
 		}
 	}
 

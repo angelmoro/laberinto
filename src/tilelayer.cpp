@@ -10,6 +10,8 @@
 #include "tileproperty.h"
 #include "tiledata.h"
 
+//#define VERBOSE 1
+
 TileLayer::TileLayer(tinyxml2::XMLElement * t)
 {
 	/*
@@ -22,7 +24,9 @@ TileLayer::TileLayer(tinyxml2::XMLElement * t)
 	offsety = 0; // Rendering offset for this layer in pixels. Defaults to 0. (since 0.14)
 
 	root_tilelayer = t;
+#ifdef VERBOSE
 	printf("creado tilelayer\n");
+#endif
 	parse();
 }
 TileLayer::~TileLayer()
@@ -51,34 +55,54 @@ void TileLayer::parse()
 	szAttributeText = NULL;
 	szAttributeText = root_tilelayer->Attribute("name");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("name no encontrado\n");
+#endif
 	}else {
 		name = szAttributeText;
+#ifdef VERBOSE
 		printf("name %s\n",name.c_str());
+#endif
 	}
 	eResult = root_tilelayer->QueryFloatAttribute("opacity", &opacity);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error opacity: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("opacity %f\n",opacity);
+#endif
 	}
 	eResult = root_tilelayer->QueryIntAttribute("visible", &visible);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando visible: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("visible %d\n",visible);
+#endif
 	}
 	eResult = root_tilelayer->QueryIntAttribute("offsetx", &offsetx);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando offsetx: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("offsetx %d\n",offsetx);
+#endif
 	}
 	eResult = root_tilelayer->QueryIntAttribute("offsety", &offsety);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando offsety: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("offsety %d\n",offsety);
+#endif
 	}
 	/*
 	 * Cargamos la lista de properties
@@ -88,9 +112,13 @@ void TileLayer::parse()
 		pListElement = pElement_tmp->FirstChildElement("property");
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento properties\n");
+#endif
 	}
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento property\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		tp = new TileProperty(pListElement);
@@ -102,7 +130,9 @@ void TileLayer::parse()
 	 */
 	pElement_tmp = root_tilelayer->FirstChildElement("data");
 	if (pElement_tmp == NULL) {
+#ifdef VERBOSE
 		printf("no hay ningun elemento tiledata\n");
+#endif
 	} else {
 		data = new TileData(pElement_tmp);
 	}

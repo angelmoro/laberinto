@@ -8,6 +8,8 @@
 #include "tileterrain.h"
 #include "tileproperty.h"
 
+//#define VERBOSE 1
+
 TileTerrain::TileTerrain(tinyxml2::XMLElement * t)
 {
 	/*
@@ -17,7 +19,9 @@ TileTerrain::TileTerrain(tinyxml2::XMLElement * t)
 	tile = -1; // The local tile-id of the tile that represents the terrain visually
 
 	root_tileterrain = t;
+#ifdef VERBOSE
 	printf("creado tileterrain\n");
+#endif
 	parse();
 }
 TileTerrain::~TileTerrain()
@@ -39,17 +43,25 @@ void TileTerrain::parse()
 	szAttributeText = NULL;
 	szAttributeText = root_tileterrain->Attribute("name");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("name no encontrado\n");
+#endif
 	}else {
 		name = szAttributeText;
+#ifdef VERBOSE
 		printf("name %s\n",name.c_str());
+#endif
 	}
 
 	eResult = root_tileterrain->QueryIntAttribute("tile", &tile);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando tile: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("tile %d\n",tile);
+#endif
 	}
 
 	/*
@@ -60,9 +72,13 @@ void TileTerrain::parse()
 		pListElement = pElement_tmp->FirstChildElement("property");
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento properties\n");
+#endif
 	}
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento property\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		tp = new TileProperty(pListElement);

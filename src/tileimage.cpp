@@ -9,6 +9,8 @@
 #include "tileimage.h"
 #include "tiledata.h"
 
+//#define VERBOSE 1
+
 TileImage::TileImage(tinyxml2::XMLElement * t)
 {
 	/*
@@ -23,7 +25,9 @@ TileImage::TileImage(tinyxml2::XMLElement * t)
 	bmp = NULL;
 
 	root_tileimage = t;
+#ifdef VERBOSE
 	printf("creado tileimage\n");
+#endif
 	parse();
 	cargar_imagen();
 }
@@ -63,45 +67,67 @@ void TileImage::parse()
 	szAttributeText = NULL;
 	szAttributeText = root_tileimage->Attribute("format");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("format no encontrado\n");
+#endif
 	}else {
 		format = szAttributeText;
+#ifdef VERBOSE
 		printf("format %s\n",format.c_str());
+#endif
 	}
 	szAttributeText = NULL;
 	szAttributeText = root_tileimage->Attribute("source");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("source no encontrado\n");
+#endif
 	}else {
 		source = szAttributeText;
+#ifdef VERBOSE
 		printf("source %s\n",source.c_str());
+#endif
 	}
 	szAttributeText = NULL;
 	szAttributeText = root_tileimage->Attribute("trans");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("trans no encontrado\n");
+#endif
 	}else {
 		trans = szAttributeText;
+#ifdef VERBOSE
 		printf("trans %s\n",trans.c_str());
+#endif
 	}
 	eResult = root_tileimage->QueryIntAttribute("width", &width);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando width: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("width %d\n",width);
+#endif
 	}
 	eResult = root_tileimage->QueryIntAttribute("height", &height);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando height: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("height %d\n",height);
+#endif
 	}
 	/*
 	 * Creamos el elemento data si existe
 	 */
 	pElement_tmp = root_tileimage->FirstChildElement("data");
 	if (pElement_tmp == NULL) {
+#ifdef VERBOSE
 		printf("no hay ningun elemento tiledata\n");
+#endif
 	} else {
 		data = new TileData(pElement_tmp);
 	}

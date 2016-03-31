@@ -32,6 +32,7 @@ class CollisionManager
 		void registrar_mapa(TileMap *mapa,
 							std::string meta_tileset,
 							std::string attr_colisionable,
+							std::string attr_objeto,
 							std::string meta_layer);
 		void desregistrar_mapa();
 		void add_colision_set(std::string nombre_colision_set);
@@ -45,6 +46,7 @@ class CollisionManager
 		TileLayer 						* meta_layer_activo;
 		TileMap 						* mapa_activo;
 		std::string 					attr_col;
+		std::string 					attr_obj;
 		std::string 					meta_tileset_activo;
 };
 

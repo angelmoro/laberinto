@@ -13,7 +13,7 @@
 #include "tileoffset.h"
 #include "tile.h"
 
-
+//#define VERBOSE 1
 
 TileSet::TileSet(tinyxml2::XMLElement * t)
 {
@@ -32,7 +32,9 @@ TileSet::TileSet(tinyxml2::XMLElement * t)
 
 
 	root_tileset = t;
+#ifdef VERBOSE
 	printf("creado tileset\n");
+#endif
 	parse();
 }
 TileSet::~TileSet()
@@ -72,62 +74,98 @@ void TileSet::parse()
 	 */
 	eResult = root_tileset->QueryIntAttribute("firstgid", &firstgid);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando firstgid: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("firstgid %d\n",firstgid);
+#endif
 	}
 	szAttributeText = NULL;
 	szAttributeText = root_tileset->Attribute("source");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("source no encontrado\n");
+#endif
 	}else {
 		source = szAttributeText;
+#ifdef VERBOSE
 		printf("source %s\n",source.c_str());
+#endif
 	}
 	szAttributeText = NULL;
 	szAttributeText = root_tileset->Attribute("name");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("name no encontrado\n");
+#endif
 	}else {
 		name = szAttributeText;
+#ifdef VERBOSE
 		printf("name %s\n",name.c_str());
+#endif
 	}
 	eResult = root_tileset->QueryIntAttribute("tilewidth", &tilewidth);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando tilewidth: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("tilewidth %d\n",tilewidth);
+#endif
 	}
 
 	eResult = root_tileset->QueryIntAttribute("tileheight", &tileheight);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando tileheight: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("tileheight %d\n",tileheight);
+#endif
 	}
 	eResult = root_tileset->QueryIntAttribute("spacing", &spacing);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando spacing: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("spacing %d\n",spacing);
+#endif
 	}
 	eResult = root_tileset->QueryIntAttribute("margin", &margin);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando margin: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("margin %d\n",margin);
+#endif
 	}
 	eResult = root_tileset->QueryIntAttribute("tilecount", &tilecount);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando tilecount: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("tilecount %d\n",tilecount);
+#endif
 	}
 	eResult = root_tileset->QueryIntAttribute("columns", &columns);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando columns: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("columns %d\n",columns);
+#endif
 	}
 	/*
 	 * Cargamos el offset si existe
@@ -137,7 +175,9 @@ void TileSet::parse()
 		tileoffset = new TileOffset(pElement_tmp);
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento tileoffset\n");
+#endif
 	}
 	/*
 	 * Cargamos la lista de properties
@@ -147,9 +187,13 @@ void TileSet::parse()
 		pListElement = pElement_tmp->FirstChildElement("property");
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento properties\n");
+#endif
 	}
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento property\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		tp = new TileProperty(pListElement);
@@ -164,7 +208,9 @@ void TileSet::parse()
 		image = new TileImage(pElement_tmp);
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento image\n");
+#endif
 	}
 	/*
 	 * Cargamos la lista de terraintypes
@@ -174,9 +220,13 @@ void TileSet::parse()
 		pListElement = pElement_tmp->FirstChildElement("terrain");
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento terraintypes\n");
+#endif
 	}
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento terrain\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		tt = new TileTerrain(pListElement);
@@ -187,7 +237,9 @@ void TileSet::parse()
 	 * Cargamos la lista de tiles
 	 */
 	pListElement = root_tileset->FirstChildElement("tile");
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento tile\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		t = new Tile(pListElement);

@@ -12,6 +12,9 @@
 #include "tileobjectgroup.h"
 #include "tileimage.h"
 
+//#define VERBOSE 1
+
+
 Tile::Tile(tinyxml2::XMLElement * t)
 {
 	/*
@@ -22,7 +25,9 @@ Tile::Tile(tinyxml2::XMLElement * t)
 	probability = 0; // A percentage indicating the probability that this tile is chosen when it competes with others while editing with the terrain tool. (optional) (since 0.9)
 
 	root_tile = t;
+#ifdef VERBOSE
 	printf("creado tile\n");
+#endif
 	parse();
 }
 Tile::~Tile()
@@ -42,23 +47,35 @@ void Tile::parse()
 	 */
 	eResult = root_tile->QueryIntAttribute("id", &id);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando id: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("id %d\n",id);
+#endif
 	}
 	szAttributeText = NULL;
 	szAttributeText = root_tile->Attribute("terrain");
 	if (szAttributeText == NULL) {
+#ifdef VERBOSE
 		printf("terrain no encontrado\n");
+#endif
 	}else {
 		terrain = szAttributeText;
+#ifdef VERBOSE
 		printf("terrain %s\n",terrain.c_str());
+#endif
 	}
 	eResult = root_tile->QueryIntAttribute("probability", &probability);
 	if (eResult != tinyxml2::XML_SUCCESS)  {
+#ifdef VERBOSE
 		printf("Error cargando probability: %i\n", eResult);
+#endif
 	}else{
+#ifdef VERBOSE
 		printf("probability %d\n",probability);
+#endif
 	}
 	/*
 	 * Cargamos la lista de properties
@@ -68,9 +85,13 @@ void Tile::parse()
 		pListElement = pElement_tmp->FirstChildElement("property");
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento properties\n");
+#endif
 	}
+#ifdef VERBOSE
 	if (pListElement == NULL) {printf("no hay ningun elemento property\n");}
+#endif
 	while (pListElement != NULL)
 	{
 		tp = new TileProperty(pListElement);
@@ -85,7 +106,9 @@ void Tile::parse()
 		image = new TileImage(pElement_tmp);
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento image\n");
+#endif
 	}
 	/*
 	 * Cargamos la animacion si existe
@@ -95,7 +118,9 @@ void Tile::parse()
 		animation = new TileAnimation(pElement_tmp);
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento animation\n");
+#endif
 	}
 	/*
 	 * Cargamos el objectgroup si existe
@@ -105,7 +130,9 @@ void Tile::parse()
 		objectgroup = new TileObjectGroup(pElement_tmp);
 	}else {
 		pListElement = NULL;
+#ifdef VERBOSE
 		printf("no hay ningun elemento objectgroup\n");
+#endif
 	}
 }
 std::list<TileProperty*>::iterator Tile::get_properties_begin_iterator()
