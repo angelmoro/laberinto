@@ -235,13 +235,15 @@ void OsoHormiguero::hit(Actor *who, int damage)
 
 void OsoHormiguero::hit(std::string objeto, int damage)
 {
+	/*
+	 * Los strings con los que comparamos son los valores de la property "objeto"
+	 * del mapa
+	 */
 	if (objeto == "agua") {
 		deshacer_posicion();
-		return;
-	};
+	} else
 	if (objeto == "piedra") {
 		deshacer_posicion();
-		return;
 	}
 
 }

@@ -345,14 +345,19 @@ int TileMap::get_tile_gid(TileLayer * layer,int pixel_x,int pixel_y)
 
 	return layer->get_tile_gid(pos);
 }
-void TileMap::crear_colision_set(std::string meta_tileset,std::string atribute,std::set<int> * colision_set)
+void TileMap::crear_colision_set(std::string nombre_colision_set,
+								std::string meta_tileset,
+								std::string atribute,
+								std::set<int> * colision_set)
 {
 	int gid;
+	bool attr_colisionable;
+	bool attr_objeto;
 
 	std::list<TileProperty*>::iterator properties_iter;
 	std::list<Tile*>::iterator tiles_iter;
 
-//	printf("meta tileset %s\n",meta_tileset.c_str());
+
 	/*
 	 * Iterar para encontrar el meta tileset
 	 */
@@ -374,6 +379,8 @@ void TileMap::crear_colision_set(std::string meta_tileset,std::string atribute,s
 		/*
 		 * Iterar por todas las propiedades del tile
 		 */
+		attr_colisionable = false;
+		attr_objeto = false;
 
 		for (properties_iter=(*tiles_iter)->get_properties_begin_iterator();
 			 properties_iter!=(*tiles_iter)->get_properties_end_iterator();
@@ -382,16 +389,36 @@ void TileMap::crear_colision_set(std::string meta_tileset,std::string atribute,s
 			if (((*properties_iter)->get_name() == atribute)&&
 					((*properties_iter)->get_value() == "true"))
 			{
-//				printf("attr name %s, value %s\n",(*properties_iter)->get_name().c_str(),(*properties_iter)->get_value().c_str());
-				/*
-				 * Al id del tile le sumo el firstgid del tile set para
-				 * obtener el gid del tile y este es el que insertamos en el set
-				 * de colision
-				 */
-				gid = (*tilesets_iter)->get_firstgid()+(*tiles_iter)->get_id();
-				colision_set->insert(gid);
-	//			printf("gid = %d\n",gid);
+				attr_colisionable = true;
 			}
+
+		// TBD "objeto" se puede parametrizar
+			if (((*properties_iter)->get_name() == "objeto")&&
+					((*properties_iter)->get_value() == nombre_colision_set))
+			{
+				attr_objeto = true;
+
+			}
+
+		}
+
+		/*
+		 * Si hemos encontrado una propiedad que dice que el tile es colisionable
+		 * y una propiedad que dice que representa a un objeto con nombre el
+		 * mismo que el del colision set que estamos creando, añadimos el tile
+		 * al colision set
+		 */
+
+		if (attr_colisionable && attr_objeto)
+		{
+			/*
+			 * Al id del tile le sumo el firstgid del tile set para
+			 * obtener el gid del tile y este es el que insertamos en el set
+			 * de colision
+			 */
+			gid = (*tilesets_iter)->get_firstgid()+(*tiles_iter)->get_id();
+			colision_set->insert(gid);
+//			printf("gid = %d\n",gid);
 		}
 	}
 

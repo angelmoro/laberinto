@@ -25,6 +25,16 @@
 			"jlevel" : 6,
 			"jnombre" : "AAA",
 			"jpuntuacion" : 320
+		},
+		{
+			"jlevel" : 5,
+			"jnombre" : "",
+			"jpuntuacion" : 190
+		},
+		{
+			"jlevel" : 4,
+			"jnombre" : "",
+			"jpuntuacion" : 140
 		}
 	]
 }

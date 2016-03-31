@@ -119,14 +119,7 @@ void CollisionManager::update()
 						/*
 						 * El actor esta sobre un tile colisionable
 						 */
-						/*
-						 * TBD ahora asumimos un solo colision set, pero esto se
-						 * puede generalizar y manejar n-colision set e indicarlos
-						 * en el metodo hit para que los actores tomen acciones distintas
-						 * en funcinon de lo que colisionan en el mapa
-						 * el metodo hit esta sobrecargado y en este caso el
-						 * primer parametro no es un actor es un objeto del mapa
-						 */
+
 						(*tmp_iter_1)->hit((*colision_sets_iter)->get_nombre(),0);
 					}
 				}
@@ -164,7 +157,7 @@ void CollisionManager::add_colision_set(std::string nombre_colision_set)
 
 	cs = new ColisionSet(nombre_colision_set);
 
-	mapa_activo->crear_colision_set(meta_tileset_activo,attr_col,cs->get_set());
+	mapa_activo->crear_colision_set(nombre_colision_set,meta_tileset_activo,attr_col,cs->get_set());
 
 	colision_sets.push_back(cs);
 
