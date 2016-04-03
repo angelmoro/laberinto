@@ -34,6 +34,7 @@
 #define TEAM_BOLSA_DINERO		10
 #define TEAM_LEVEL				11
 #define TEAM_RECORDS			12
+#define TEAM_EXPLOSION			13
 
 /*
  * Direccion del actor

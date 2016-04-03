@@ -152,6 +152,7 @@ void TestFrameWork::main()
 	 control_p1->add_action_name(OsoHormiguero::UP, "Subir");
 	 control_p1->add_action_name(OsoHormiguero::LEFT, "Izquierda");
 	 control_p1->add_action_name(OsoHormiguero::RIGHT,"Derecha");
+	 control_p1->add_action_name(OsoHormiguero::ANIQUILACION,"Aniquilacion");
 
 	 /*
 	  * creamos un periferico
@@ -173,6 +174,8 @@ void TestFrameWork::main()
 		 Peripheral::ON_PRESS);
 		 control_p1->set_actionperipheral(OsoHormiguero::RIGHT, kboard ,ALLEGRO_KEY_RIGHT,
 		 Peripheral::ON_PRESS);
+		 control_p1->set_actionperipheral(OsoHormiguero::ANIQUILACION, kboard ,ALLEGRO_KEY_Z,
+				 Peripheral::ON_PRESS);
 
 	 } else {
 
@@ -184,6 +187,8 @@ void TestFrameWork::main()
 		 Peripheral::ON_PRESS);
 		 control_p1->set_actionperipheral(OsoHormiguero::RIGHT, kboard ,ALLEGRO_KEY_PAD_6,
 		 Peripheral::ON_PRESS);
+		 control_p1->set_actionperipheral(OsoHormiguero::ANIQUILACION, kboard ,ALLEGRO_KEY_PAD_5,
+		 		 Peripheral::ON_PRESS);
 
 	 }
 

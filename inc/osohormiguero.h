@@ -28,7 +28,8 @@ public:
 		DOWN,
 		UP,
 		LEFT,
-		RIGHT
+		RIGHT,
+		ANIQUILACION
 	}action_t;
 
 	void do_action(ControllableObject::action_t act, int magnitude);
@@ -37,6 +38,8 @@ public:
 	static OsoHormiguero * crear_osohormiguero(ActorManager *actmgr,Score *score_tmp,
 												Score *score_tmp1);
 	int get_puntuacion();
+
+
 
 protected:
 	ActorManager	* am;
@@ -48,7 +51,9 @@ protected:
 	Score        	* sc_vidas;
 	bool			activo;
 
-
+private:
+	void check_salud();
+	void aniquilacion();
 };
 
 

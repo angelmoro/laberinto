@@ -2,29 +2,29 @@
 	"records" : 
 	[
 		{
+			"jlevel" : 20,
+			"jnombre" : "DFDFDFDF",
+			"jpuntuacion" : 2510
+		},
+		{
+			"jlevel" : 13,
+			"jnombre" : "",
+			"jpuntuacion" : 1050
+		},
+		{
+			"jlevel" : 13,
+			"jnombre" : "QWQWQWQ",
+			"jpuntuacion" : 1050
+		},
+		{
 			"jlevel" : 10,
-			"jnombre" : "ANGEL",
-			"jpuntuacion" : 510
+			"jnombre" : "",
+			"jpuntuacion" : 830
 		},
 		{
-			"jlevel" : 9,
-			"jnombre" : "GELU",
-			"jpuntuacion" : 540
-		},
-		{
-			"jlevel" : 9,
-			"jnombre" : "ANGEL",
-			"jpuntuacion" : 480
-		},
-		{
-			"jlevel" : 5,
-			"jnombre" : "XXXXXXXXX",
-			"jpuntuacion" : 170
-		},
-		{
-			"jlevel" : 5,
-			"jnombre" : "YYYYYYYYY",
-			"jpuntuacion" : 0
+			"jlevel" : 10,
+			"jnombre" : "",
+			"jpuntuacion" : 830
 		}
 	]
 }

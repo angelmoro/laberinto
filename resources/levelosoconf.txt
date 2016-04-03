@@ -1,6 +1,6 @@
 {
    "jb_mov_to_dead" : 10,
-   "jb_ticks" : 2000,
+   "jb_ticks" : 300,
    "jkey_pad" : false,
    "jpeso_agua" : 0.6,
    "jpeso_bolsa_ticks" : 100,
@@ -12,5 +12,5 @@
    "jpeso_rana_to_dead" : 0.5,
    "jpeso_veneno" : 0.2,
    "jr_mov_to_dead" : 20,
-   "jr_ticks" : 1000
+   "jr_ticks" : 600
 }

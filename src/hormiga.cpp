@@ -14,6 +14,7 @@
 #include "mapadebits.h"
 #include "game.h"
 #include "actormanager.h"
+#include "explosion.h"
 
 int Hormiga::num_hormigas_verdes=0;
 int Hormiga::num_hormigas_rojas=0;
@@ -35,6 +36,7 @@ Hormiga::~Hormiga()
 {
 	if (tipo == kRedAnt){
 		num_hormigas_rojas = num_hormigas_rojas - 1;
+		Explosion::crear_explosion(am,get_x(),get_y());
 	} else {
 		num_hormigas_verdes = num_hormigas_verdes - 1;
 	}

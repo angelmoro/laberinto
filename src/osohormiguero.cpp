@@ -21,7 +21,7 @@ OsoHormiguero::OsoHormiguero(ActorManager * b,Score * s,Score * s1)
 	sc = s;
 	size = 20; //tamño en pixels del movimiento
 	sc_vidas = s1;
-	sc_vidas->suma(3);
+	sc_vidas->suma(20);
 	activo = TRUE;
 
 	 /*
@@ -97,6 +97,11 @@ void OsoHormiguero::do_action(ControllableObject::action_t act, int magnitude)
 //			x+=size;
 			set_x(get_x()+size);
 			break;
+		case ANIQUILACION:
+			aniquilacion();
+			break;
+		default:
+			break;
 	}
 
 	if (get_x()<0) set_x(0);
@@ -107,10 +112,6 @@ void OsoHormiguero::do_action(ControllableObject::action_t act, int magnitude)
 }
 void OsoHormiguero::hit(Actor *who, int damage)
 {
-	Actor 					actor_tmp;
-	list<Actor*>::iterator 	actors_iter_tmp;
-	Marca 					* marca_tmp;
-	int 					nivel_alcanzado;
 
 	switch (who->get_team())
 	{
@@ -156,81 +157,9 @@ void OsoHormiguero::hit(Actor *who, int damage)
 		default:
 			break;
 	}
-	/*
-	 * Si el oso hormiguero se queda sin vidas, se elimina el oso hormiguero y
-	 * pasamos a registrar records y finalizar el juego
-	 */
-	if (sc_vidas->get_score() == 0)	{
 
-		/*
-		 * Centramos el oso
-		 */
+	check_salud();
 
-		 set_x(350);
-		 set_y(300);
-
-		/*
-		 * no lo puedo eliminar porque esta asociado a un control y al periferico
-		 * teclado, si pulso el cursos despues de muerto el puntero a la instacia
-		 * del oso hormiguero ya no es valido.
-		 * Por tanto lo hago invisible
-		 *
-		 * am->del(this);
-		 */
-
-		/*
-		 * Uso la invisivilidad para no volver a entrar aqui, aunque su primer uso
-		 * es para no dibujar al oso hormiguero
-		 * Esto es necesario porque cuando el score llega a cero, el oso puede seguir
-		 * colisionando y vuelve a esta rutina y por cada colision se vuelve a
-		 * crear otra marca, cuando solo se debe crear una
-		 */
-
-		if(activo) {
-
-
-			/*
-			 * Obtenemos el nivel en el que estamos para añadirlo a la nueva marca
-			 * y lo destruimos
-			 */
-
-			for (actors_iter_tmp=am->get_begin_iterator();
-							 actors_iter_tmp!=am->get_end_iterator();
-				 actors_iter_tmp++)
-			{
-				if(((*actors_iter_tmp)->get_team() == TEAM_LEVEL) &&
-				   ((*actors_iter_tmp)->get_estado() == CREADO))	{
-
-					nivel_alcanzado = (*actors_iter_tmp)->get_level();
-					((Level*)(*actors_iter_tmp))->set_last_level(TRUE);
-					((Level*)(*actors_iter_tmp))->destroy();
-				}
-			}
-
-			/*
-			 * Creamos la nueva marca
-			 */
-
-			for (actors_iter_tmp=am->get_begin_iterator();
-				 actors_iter_tmp!=am->get_end_iterator();
-				 actors_iter_tmp++)
-			{
-				if((*actors_iter_tmp)->get_team() == TEAM_RECORDS) {
-
-				/*
-				 * Creamos una nueva marca y la añadimos a la lista de records.
-				 */
-					marca_tmp = new Marca();
-					marca_tmp->set_nombre(""); //todavia no se el nombre
-					marca_tmp->set_puntuacion(sc->get_score());
-					marca_tmp->set_level(nivel_alcanzado);
-					(*actors_iter_tmp)->add(marca_tmp);
-
-				}
-			}
-			activo = FALSE;
-		}
-	}
 }
 
 void OsoHormiguero::hit(std::string objeto, int damage)
@@ -332,4 +261,112 @@ int OsoHormiguero::get_puntuacion()
 
 	p = sc->get_score();
 	return p;
+}
+void OsoHormiguero::aniquilacion()
+{
+
+	list<Actor*>::iterator 	actors_iter_tmp;
+
+
+
+	/*
+	 * Recorro la lista de actores y elimino todas las hormigas rojas
+	 */
+
+	for (actors_iter_tmp=am->get_begin_iterator();
+		 actors_iter_tmp!=am->get_end_iterator();
+		 actors_iter_tmp++)
+	{
+		if((*actors_iter_tmp)->get_team() == TEAM_HORMIGAS_ROJAS) {
+
+			am->del(*actors_iter_tmp);
+
+		}
+	}
+
+	sc_vidas->resta(2);
+	check_salud();
+}
+void OsoHormiguero::check_salud()
+{
+	list<Actor*>::iterator 	actors_iter_tmp;
+	Marca 					* marca_tmp;
+	int 					nivel_alcanzado;
+
+
+	/*
+	 * Si el oso hormiguero se queda sin vidas, se elimina el oso hormiguero y
+	 * pasamos a registrar records y finalizar el juego
+	 */
+	if (sc_vidas->get_score() <= 0)	{
+
+		/*
+		 * Centramos el oso
+		 */
+
+		 set_x(350);
+		 set_y(300);
+
+		/*
+		 * no lo puedo eliminar porque esta asociado a un control y al periferico
+		 * teclado, si pulso el cursos despues de muerto el puntero a la instacia
+		 * del oso hormiguero ya no es valido.
+		 * Por tanto lo hago invisible
+		 *
+		 * am->del(this);
+		 */
+
+		/*
+		 * Uso la invisivilidad para no volver a entrar aqui, aunque su primer uso
+		 * es para no dibujar al oso hormiguero
+		 * Esto es necesario porque cuando el score llega a cero, el oso puede seguir
+		 * colisionando y vuelve a esta rutina y por cada colision se vuelve a
+		 * crear otra marca, cuando solo se debe crear una
+		 */
+
+		if(activo) {
+
+
+			/*
+			 * Obtenemos el nivel en el que estamos para añadirlo a la nueva marca
+			 * y lo destruimos
+			 */
+
+			for (actors_iter_tmp=am->get_begin_iterator();
+							 actors_iter_tmp!=am->get_end_iterator();
+				 actors_iter_tmp++)
+			{
+				if(((*actors_iter_tmp)->get_team() == TEAM_LEVEL) &&
+				   ((*actors_iter_tmp)->get_estado() == CREADO))	{
+
+					nivel_alcanzado = (*actors_iter_tmp)->get_level();
+					((Level*)(*actors_iter_tmp))->set_last_level(TRUE);
+					((Level*)(*actors_iter_tmp))->destroy();
+				}
+			}
+
+			/*
+			 * Creamos la nueva marca
+			 */
+
+			for (actors_iter_tmp=am->get_begin_iterator();
+				 actors_iter_tmp!=am->get_end_iterator();
+				 actors_iter_tmp++)
+			{
+				if((*actors_iter_tmp)->get_team() == TEAM_RECORDS) {
+
+				/*
+				 * Creamos una nueva marca y la añadimos a la lista de records.
+				 */
+					marca_tmp = new Marca();
+					marca_tmp->set_nombre(""); //todavia no se el nombre
+					marca_tmp->set_puntuacion(sc->get_score());
+					marca_tmp->set_level(nivel_alcanzado);
+					(*actors_iter_tmp)->add(marca_tmp);
+
+				}
+			}
+			activo = FALSE;
+		}
+	}
 }
