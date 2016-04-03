@@ -24,6 +24,7 @@
 #include "records.h"
 #include "levelosoconf.h"
 #include "tilemap.h"
+#include "marca.h"
 
 LevelOso::LevelOso(ActorManager * b,LevelManager * l,
 		           int n, int c, int a, int v, int hv,
@@ -228,7 +229,6 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 	  ALLEGRO_PATH   	*path;
 	  ALLEGRO_FONT 	 	*font;
 	  TileMap			*m;
-	  string			mapa;
 	  char 				buffer [256];
 
 	 /*
@@ -245,11 +245,14 @@ LevelOso* LevelOso::crear_level(ActorManager *actmgr,LevelManager *levmgr, strin
 	  * Creamos el mapa del nivel
 	  */
 
-	 sprintf (buffer, "resources/mapa%d.tmx",nivel);
-	 mapa = buffer;
+	 sprintf (buffer, "mapa%d.tmx",nivel);
+	 al_set_path_filename(path, buffer);
 
-	 m = new TileMap(mapa);
+	 m = new TileMap(al_path_cstr(path, '/'));
 
+	 /*
+	  * creamos el nivel
+	  */
 	 level_oso_tmp = new LevelOso(actmgr,levmgr,nivel,c,a,v,hv,hr,rt,bt,rtd,btd,m);
 /*
 	 bmp = al_load_bitmap(al_path_cstr(path, '/'));
@@ -321,8 +324,8 @@ void LevelOso::crear_niveles(int niveles,ActorManager *actmgr,LevelManager *levm
 
 	pos_x = 250;
 	pos_y = 0;
-	float peso_comida,peso_agua,peso_veneno,peso_hormigas_verdes,peso_hormigas_rojas;
-	float peso_rana_ticks, peso_bolsa_ticks, peso_rana_to_dead, peso_bolsa_to_dead;
+//	float peso_comida,peso_agua,peso_veneno,peso_hormigas_verdes,peso_hormigas_rojas;
+//	float peso_rana_ticks, peso_bolsa_ticks, peso_rana_to_dead, peso_bolsa_to_dead;
 	int c,a,v,hr,hv;
 
 
@@ -366,7 +369,7 @@ void LevelOso::crear_niveles(int niveles,ActorManager *actmgr,LevelManager *levm
  * Creamos 20 niveles con el numero de comida,agua,veneno,hormiga verde y hormiga roja
  * ajustado a su nivel y las apariciones y desapariciones de la rana y la bolsa de dinero
  */
-	 for(i=1; i<=20; i++){
+	 for(i=1; i<=niveles; i++){
 		 c = (int)floor(configuracion.get_peso_comida() * i);
 		 a = (int)floor(configuracion.get_peso_agua() * i);
 		 v = (int)floor(configuracion.get_peso_veneno() * i);
@@ -388,7 +391,7 @@ void LevelOso::crear_niveles(int niveles,ActorManager *actmgr,LevelManager *levm
 				                              c,a,v,hv,hr,pos_x,pos_y,r_ticks,b_ticks,
 											  r_mov_to_dead,b_mov_to_dead);
 
-		if (i == 20) {
+		if (i == niveles) {
 			level_oso_tmp->set_last_level(TRUE);
 		} else {
 			level_oso_tmp->set_last_level(FALSE);
@@ -400,8 +403,11 @@ void LevelOso::crear_niveles(int niveles,ActorManager *actmgr,LevelManager *levm
 void LevelOso::tick()
 {
 	Level * level_tmp;
+	Level * level_marca_tmp;
 	Actor actor_tmp;
 	list<Actor*>::iterator actors_iter_tmp;
+	Marca *marca_tmp;
+	int puntuacion;
 
 	switch (estado) {
 
@@ -430,7 +436,7 @@ void LevelOso::tick()
 			}
 
 	/*
-	 * Si todas las hormigas verdes 0 hormigas rojas muertas, cambio de nivel
+	 * Si todas las hormigas verdes muertas, cambio de nivel
 	 */
 
 			if (Hormiga::num_hormigas_verdes == 0){
@@ -447,6 +453,7 @@ void LevelOso::tick()
 				 * si no es el ultimo
 				 */
 				level_tmp = le->next();
+				level_marca_tmp = level_tmp;
 				if (!level_tmp->last_level()) {
 					level_tmp->set_activo(FALSE);
 					level_tmp = le->current();
@@ -454,12 +461,38 @@ void LevelOso::tick()
 				} else {
 					// fin del juego, pedir nombre para almacenar record y mostrar records
 					al_play_sample(sonido_game_over, 9.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+
+	/*
+	 * Buscamos el osohormiguero para obetner la puntuacion
+	 */
+					for (actors_iter_tmp=am->get_begin_iterator();
+							 actors_iter_tmp!=am->get_end_iterator();
+							 actors_iter_tmp++)
+						{
+							if((*actors_iter_tmp)->get_team()== TEAM_OSO) {
+								puntuacion = (*actors_iter_tmp)->get_puntuacion();
+							}
+						}
+
+	/*
+	 * Buscamos los records para añadir una nueva marca
+	 */
 					for (actors_iter_tmp=am->get_begin_iterator();
 						 actors_iter_tmp!=am->get_end_iterator();
 						 actors_iter_tmp++)
 					{
 						if((*actors_iter_tmp)->get_team()== TEAM_RECORDS) {
 							(*actors_iter_tmp)->set_estado(CAPTURANDO);
+
+							/*
+							 * Creamos una nueva marca y la añadimos a la lista de records.
+							 */
+								marca_tmp = new Marca();
+								marca_tmp->set_nombre(""); //todavia no se el nombre
+								marca_tmp->set_puntuacion(puntuacion);
+								marca_tmp->set_level(level_marca_tmp->get_level());
+								(*actors_iter_tmp)->add(marca_tmp);
+
 						}
 					}
 				}

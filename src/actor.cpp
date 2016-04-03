@@ -61,8 +61,14 @@ void Actor::set_y(int pos_y)
 
 	y=pos_y;
 }
-
 int Actor::get_score()
+{
+	/*
+	 * revisar como se usa esta funcion, creo que esta mal interpretada
+	 */
+	return 0;
+}
+int Actor::get_puntuacion()
 {
 	return 0;
 }

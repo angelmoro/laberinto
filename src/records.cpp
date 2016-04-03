@@ -78,8 +78,7 @@ void Records::del(Marca *m)
 {
 	list<Marca*>::iterator tmp_marcas_iter;
 	tmp_marcas_iter=find(marcas.begin(), marcas.end(), m);
-	if (tmp_marcas_iter!=marcas.end())
-	marcas.erase(tmp_marcas_iter);
+	if (tmp_marcas_iter!=marcas.end())	marcas.erase(tmp_marcas_iter);
 }
 void Records::rewind()
 {
@@ -104,13 +103,16 @@ void Records::do_action(ControllableObject::action_t act, int magnitude)
 {
 	list<Marca*>::iterator tmp_marcas_iter;
 
-	al_play_sample(sonido_tecla, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
-	if ((act >= ALLEGRO_KEY_A) && (act <= ALLEGRO_KEY_Z )) {
-		if (nombre_tmp.length()<9)
-			nombre_tmp += al_keycode_to_name(act);
-	}
+	if (state == CAPTURANDO)
+	{
+		al_play_sample(sonido_tecla, 3.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+		if ((act >= ALLEGRO_KEY_A) && (act <= ALLEGRO_KEY_Z ))
+		{
+			if (nombre_tmp.length()<9)
+				nombre_tmp += al_keycode_to_name(act);
+		}
 
-	switch (act)
+		switch (act)
 		{
 			case ALLEGRO_KEY_ENTER:
 				tmp_marcas_iter = marcas.end();
@@ -138,7 +140,8 @@ void Records::do_action(ControllableObject::action_t act, int magnitude)
 			default:
 				break;
 		}
-//printf("%s\n",nombre_tmp.c_str());
+	//printf("%s\n",nombre_tmp.c_str());
+	}
 
 }
 

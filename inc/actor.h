@@ -65,7 +65,8 @@ class Actor
 		virtual void init();
 		virtual int get_w();
 		virtual int get_h();
-		virtual int get_score();
+		virtual int get_puntuacion();
+		virtual int get_score(); //TBD revisar esta funcion creo que esta mal interpretada
 		virtual int get_level();
 		virtual bool nivel_activo();
 		virtual bool last_level();

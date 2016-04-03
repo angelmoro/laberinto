@@ -36,6 +36,7 @@ public:
 	void hit(std::string objeto, int damage);
 	static OsoHormiguero * crear_osohormiguero(ActorManager *actmgr,Score *score_tmp,
 												Score *score_tmp1);
+	int get_puntuacion();
 
 protected:
 	ActorManager	* am;

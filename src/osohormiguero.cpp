@@ -326,3 +326,10 @@ OsoHormiguero* OsoHormiguero::crear_osohormiguero(ActorManager *actmgr,Score * s
 
 	 return osohormiguero_tmp;
 }
+int OsoHormiguero::get_puntuacion()
+{
+	int p;
+
+	p = sc->get_score();
+	return p;
+}
