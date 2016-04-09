@@ -21,7 +21,7 @@ OsoHormiguero::OsoHormiguero(ActorManager * b,Score * s,Score * s1)
 	sc = s;
 	size = 20; //tamño en pixels del movimiento
 	sc_vidas = s1;
-	sc_vidas->suma(20);
+	sc_vidas->suma(18);
 	activo = TRUE;
 
 	 /*
