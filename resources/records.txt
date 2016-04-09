@@ -2,29 +2,14 @@
 	"records" : 
 	[
 		{
-			"jlevel" : 20,
-			"jnombre" : "DFDFDFDF",
-			"jpuntuacion" : 2510
+			"jlevel" : 2,
+			"jnombre" : "QQQQ",
+			"jpuntuacion" : 10
 		},
 		{
-			"jlevel" : 13,
+			"jlevel" : 0,
 			"jnombre" : "",
-			"jpuntuacion" : 1050
-		},
-		{
-			"jlevel" : 13,
-			"jnombre" : "QWQWQWQ",
-			"jpuntuacion" : 1050
-		},
-		{
-			"jlevel" : 10,
-			"jnombre" : "",
-			"jpuntuacion" : 830
-		},
-		{
-			"jlevel" : 10,
-			"jnombre" : "",
-			"jpuntuacion" : 830
+			"jpuntuacion" : 0
 		}
 	]
 }

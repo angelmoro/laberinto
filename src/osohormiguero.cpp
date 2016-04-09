@@ -342,30 +342,10 @@ void OsoHormiguero::check_salud()
 					nivel_alcanzado = (*actors_iter_tmp)->get_level();
 					((Level*)(*actors_iter_tmp))->set_last_level(TRUE);
 					((Level*)(*actors_iter_tmp))->destroy();
-				}
-			}
-
-			/*
-			 * Creamos la nueva marca
-			 */
-
-			for (actors_iter_tmp=am->get_begin_iterator();
-				 actors_iter_tmp!=am->get_end_iterator();
-				 actors_iter_tmp++)
-			{
-				if((*actors_iter_tmp)->get_team() == TEAM_RECORDS) {
-
-				/*
-				 * Creamos una nueva marca y la añadimos a la lista de records.
-				 */
-					marca_tmp = new Marca();
-					marca_tmp->set_nombre(""); //todavia no se el nombre
-					marca_tmp->set_puntuacion(sc->get_score());
-					marca_tmp->set_level(nivel_alcanzado);
-					(*actors_iter_tmp)->add(marca_tmp);
 
 				}
 			}
+
 			activo = FALSE;
 		}
 	}
